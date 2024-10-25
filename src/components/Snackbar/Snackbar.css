@@ -1,0 +1,59 @@
+.snackbar {
+    position: fixed;
+    z-index: 1000;
+    top: 4.5vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    font-weight: 400;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0vh 0vw 0.2vh rgba(0, 0, 0, 0.08);
+    width: auto;
+    height: 8.5vh;
+    border-radius: 13.33px;
+  }
+
+  .snackbar_container {
+    display: flex;
+    align-items: center;
+    box-shadow: 0vh 0vw 2.7vh rgba(0, 0, 0, 0.16);
+    border-radius: 13.33px;
+    height: 8.5vh;
+  }
+  
+  .snackbar-icon {
+    margin-right: 1.7vw;
+    padding: 2vh 0 2vh 1.8vw;
+    height: 3vh;
+    width: auto;
+  }
+  
+  .snackbar-text {
+    flex-grow: 1;
+    font-family: "Raleway" sans-serif;
+    font-size: 3.1vh;
+    line-height: 3.6vh;
+    text-align: center;
+  }
+  
+  .snackbar-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .snackbar-close img {
+    margin-left: 5.5vw;
+    padding: 2vh 1.8vw 2vh 0;
+    height: 3vh;
+    width: auto;
+  }
+
+  .snackbar-close img:hover {
+    filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%) hue-rotate(346deg) brightness(100%) contrast(95%);
+}
+
+.snackbar-close img:active {
+    filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%) hue-rotate(346deg) brightness(92%) contrast(95%);
+}
+  
