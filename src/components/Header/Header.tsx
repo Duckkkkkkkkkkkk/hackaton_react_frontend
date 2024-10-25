@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import icon_geryon from "../../images/icons/icon_geryon.svg";
+import icon_webpraktik from "../../images/icons/icon_webpraktik.svg"
 import { useLayout } from '../Context/LayoutContext';
 
 const Header: React.FC = () => {
@@ -12,8 +13,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="header">
-      <p>LOGO</p>
-      {/* <img src={icon_geryon} alt="geryon" /> */}
+      {<img className="icon_webpraktik" src={icon_webpraktik} alt="webpractice" />}
     </header>
   );
 };

@@ -5,17 +5,15 @@
     left: 0;
     color: white;
     background-color: #ffffff;
-    padding: 1vh 5%;
+    padding: 1vh 4%;
     z-index: 1000;
     border-bottom: 0.2vh solid #e0e0e0;
-    height: 16%;
+    height: 10%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .header img {
-    margin-left: 0;
-    padding-top: 10px;
-    height: 74%;
+    height: 40%;
 }

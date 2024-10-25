@@ -43,7 +43,7 @@
 }
 
 .sidebar.open + .main-content {
-  margin-left: 4vw;
+  margin-left: 5vw;
 }
 
 .sidebar-toggle {
@@ -51,19 +51,21 @@
   font-size: 3vw;
   cursor: pointer;
   z-index: 1100;
-  left: 14.5vw;
+  left: 14vw;
   top: 18.5vh;
   transition: 0.3s;
+  background: none;
+  border: none;
 }
 
 .toggle-icon {
   width: auto;
-  height: 2.3vh;
+  height: 2.8vh;
 }
 
 .sidebar-toggle.openBth {
   /* кнопка в закрытом сайдбар */
-  left: 5.4vw;
+  left: 5vw;
 }
 
 .sidebar.open ul {
@@ -119,27 +121,25 @@
 }
 
 .sidebar ul li a:hover {
-  color: #f34f4e;
+  color: #7927E0;
   cursor: pointer;
 }
 .sidebar ul li a:focus {
-  color: #f04342;
+  color: #7927E0;
   cursor: pointer;
 }
 .sidebar ul li a.active {
-  color: #f04342;
+  color: #7927E0;
   cursor: pointer;
 }
 
 .sidebar ul li a:hover img {
-  filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%)
-    hue-rotate(346deg) brightness(100%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(28%) sepia(64%) saturate(3445%) hue-rotate(255deg) brightness(100%) contrast(90%);
 }
 
 .sidebar ul li a:focus img,
 .sidebar ul li a.active img {
-  filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%)
-    hue-rotate(346deg) brightness(92%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(28%) sepia(64%) saturate(3445%) hue-rotate(255deg) brightness(100%) contrast(90%);
 }
 
 .sidebar-footer {

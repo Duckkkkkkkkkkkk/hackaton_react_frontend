@@ -4,11 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 // import icon2 from "../../images/icons/icon2.svg";
 // import icon3 from "../../images/icons/icon3.svg";
 // import icon4 from "../../images/icons/icon4.svg";
-// import icon5 from "../../images/icons/icon5.svg";
+import icon_projects from "../../images/icons/icon_projects.svg";
 // import icon6 from "../../images/icons/icon_tasks.svg";
 // import icon7 from "../../images/icons/icon_documents.svg";
-// import icon8 from "../../images/icons/icon3.svg";
-// import icon9 from "../../images/icons/icon_exit.svg";
+import icon_profile from "../../images/icons/icon_profile.svg";
+import icon_exit from "../../images/icons/icon_exit.svg";
 import open from "../../images/icons/icon_open.svg";
 import close from "../../images/icons/icon_close.svg";
 import { SidebarContext } from "../SidebarContext/SidebarContext";
@@ -82,7 +82,7 @@ const Sidebar: React.FC = () => {
                 onClick={() => setActiveLink("/project")}
                 className={activeLink === "/project" ? "active" : ""}
               >
-                {/* <img src={icon5} alt="icon5" className="icon" /> */}
+                {<img src={icon_projects} alt="icon_projects" className="icon" />}
                 <p>Проекты</p>
               </Link>
             </li>
@@ -163,7 +163,7 @@ const Sidebar: React.FC = () => {
             onClick={() => setActiveLink("/profile")}
             className={activeLink === "/profile" ? "active" : ""}
           >
-            {/* <img src={icon8} alt="icon8" className="icon" /> */}
+            { <img src={icon_profile} alt="icon_profile" className="icon" /> }
             <p>Личный кабинет</p>
           </Link>
         </li>
@@ -177,7 +177,7 @@ const Sidebar: React.FC = () => {
             }}
             className={activeLink === "/" ? "active" : ""}
           >
-            {/* <img src={icon9} alt="icon9" className="icon" /> */}
+            {<img src={icon_exit} alt="icon_exit" className="icon" />}
             <p>Выйти</p>
           </Link>
         </li>
