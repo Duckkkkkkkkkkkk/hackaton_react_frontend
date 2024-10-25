@@ -1,0 +1,152 @@
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 90vh;
+  background-color: #fff;
+  font-family: 'Raleway', sans-serif;
+}
+
+.login-form {
+  position: absolute;
+  z-index: 1;
+  margin-top: 11vh;
+  background-color: #fff;
+  border-radius: 1.7vh;
+  box-shadow: 0px 15px 68px 0px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  width: 25vw;
+  max-width: 610px;
+  /* height: 50vh; */
+  padding-bottom: 3vh;
+}
+
+.login-form h2 {
+  margin-top: 4vh;
+  margin-bottom: 4.5vh;
+  text-align: center;
+  font-size: 3vh;
+  font-weight: 700;
+  line-height: 130%;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.7vh;
+  text-align: center;
+}
+
+.form-control {
+  width: calc(100% - 10vw);
+  padding: 0 1vw 0 1vw;
+  background-color: #e8e8e8 !important;
+  border-radius: 10px;
+  color: #656468;
+  font-family: 'Arial', sans-serif;
+  font-size: 1.7vh;
+  font-weight: 400;
+  height: 6.5vh;
+  border: none;
+  margin: 0 auto;
+  transition: background-color 0.3s ease, border 0.3s ease;
+  -webkit-appearance: none; /* для Safari и Chrome */
+  -moz-appearance: none; /* для Firefox */
+  appearance: none; /* для других браузеров */
+}
+
+.form-control::-ms-reveal, /* для Edge */
+.form-control::-ms-clear {
+  display: none;
+}
+
+.form-control:focus {
+  outline: none;
+}
+
+.toggle-pass-icon {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 5vw;
+  transform: translateY(-50%);
+  width: 2vh;
+  height: auto;
+  cursor: pointer;
+}
+
+.forgot-password {
+  margin: 1.5vh 2vw;
+  text-align: center;
+  font-size: 2.2vh;
+  font-weight: 500;
+}
+
+.forgot-password a {
+  text-decoration: none;
+  color: #656468;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.login-btn {
+  width: calc(100% - 10vw);
+  /* margin: 0 93px; */
+  padding: 2.2vh;
+  border-radius: 1.7vh;
+  cursor: pointer;
+  background-color: #7927E0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2vh;
+  font-weight: 700;
+  line-height: 1.9vh;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+}
+
+.login-image {
+  position: absolute;
+  z-index: 1;
+  /* width: auto;
+  height: 55vh; */
+  margin-left: 55vw;
+  margin-top: 52vh;
+  transform: scale(1);
+}
+
+.cow {
+  width: 40vw;
+  height: auto;
+}
+
+.login-btn:hover {
+  background-color: #7927E0;
+}
+
+.login-btn:active {
+  background-color: #7927E0;
+}
+
+.forgot-password a:hover {
+  color: #7927E0;
+  text-decoration: underline;
+}
+
+.forgot-password a:active {
+  color: #7927E0;
+  text-decoration: underline;
+}
+
+.form-control:hover {
+  background-color: #DDDBDB !important;
+}
+
+.form-control:focus {
+  background-color: #DDDBDB !important;
+  border: 0.1vh solid #656468;
+  outline: none;
+}
+
