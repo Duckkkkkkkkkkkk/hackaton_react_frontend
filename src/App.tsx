@@ -7,6 +7,7 @@ import Header from "./components/Header/Header";
 import { LayoutProvider } from "./components/Context/LayoutContext";
 import LoginPage from "./pages/Login/LoginPage";
 import ProjectTablePage from "./pages/ProjectTablePage/ProjectTablePage";
+import TaskPage from "./pages/TasksPage/TasksPage";
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const MainLayout: React.FC = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/projects" element={<ProjectTablePage />} />
+          <Route path="/tasks" element={<TaskPage />} />
           
         </Routes>
       </div>
