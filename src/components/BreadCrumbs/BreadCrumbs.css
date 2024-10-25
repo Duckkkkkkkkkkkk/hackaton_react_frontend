@@ -1,0 +1,65 @@
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  /* font-family: "Raleway" sans-serif; */
+  padding: 1vh 0;
+  width: 94%;
+  border-bottom: 0.1vw solid #e0e0e0;
+}
+
+.breadcrumb-container.main-panel {
+  margin-top: 20vh;
+  margin-left: 2.2vw;
+}
+
+.breadcrumb-container.sub-page {
+  padding-top: 4vh;
+  margin-left: 0;
+}
+
+.breadcrumb-title {
+  font-size: 2.3vh;
+  font-weight: 400;
+  line-height: 150%;
+  text-align: left;
+  color: #656468;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-title.regular {
+  font-weight: 400;
+}
+
+.breadcrumb-title:hover {
+  color: #F34F4E;
+}
+
+.breadcrumb-title:active {
+  color: #F04342;
+}
+
+
+.breadcrumb-separator {
+  margin: 0.4vh 1.5vh 0 1.5vh;
+  width: 0.4vw;
+  height: auto;
+}
+
+.breadcrumb-current {
+  font-size: 2.3vh;
+  font-weight: 500;
+  line-height: 150%;
+  text-align: left;
+  color: #656468;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.breadcrumb-current:hover {
+  color: #F34F4E;
+}
+
+.breadcrumb-current:active {
+  color: #F04342;
+}
