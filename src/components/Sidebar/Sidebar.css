@@ -1,0 +1,156 @@
+.sidebar {
+  height: 100vh;
+  width: 15vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 8vh;
+  z-index: 999;
+  border-right: 0.2vh solid #e0e0e0;
+  font-size: 2.3vh;
+  margin-top: 10vh;
+}
+
+.sidebar.open {
+  width: 6vw;
+}
+.sidebar.open li {
+  width: 85%;
+  height: 6vh;
+}
+
+.sidebar.open .sidebar-footer li {
+  width: 85%;
+}
+
+.sidebar.open ul {
+  margin-top: 2vh;
+}
+.toggle-button {
+  right: 6vh;
+  left: 0;
+}
+/* .sidebar-toggle.openBth {
+  right: -4vw;
+} */
+
+.main-content {
+  margin-left: 12vw; /* Ширина сайдбара в закрытом состоянии */
+  transition: margin-left 0.3s; /* Анимация изменения отступа слева */
+}
+
+.sidebar.open + .main-content {
+  margin-left: 4vw;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  font-size: 3vw;
+  cursor: pointer;
+  z-index: 1100;
+  left: 14.5vw;
+  top: 18.5vh;
+  transition: 0.3s;
+}
+
+.toggle-icon {
+  width: auto;
+  height: 2.3vh;
+}
+
+.sidebar-toggle.openBth {
+  /* кнопка в закрытом сайдбар */
+  left: 5.4vw;
+}
+
+.sidebar.open ul {
+  width: 65%;
+}
+
+.sidebar.open p {
+  display: none;
+}
+
+.sidebar ul li a {
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: normal;
+}
+
+.sidebar li {
+  height: 6vh;
+  width: 85%;
+  box-sizing: border-box;
+}
+
+.sidebar ul li a img {
+  height: auto;
+  width: 1.7vw;
+  margin-right: 0.5vw;
+  transition: all 0.3s ease;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 2vw;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sidebar ul li a {
+  transition: all 0.3s ease-in-out;
+  color: #656468;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sidebar ul li a:hover {
+  padding-left: 0.5vw;
+  border-radius: 10px;
+  background-color: #e8e8e8;
+}
+
+.sidebar ul li a:hover {
+  color: #f34f4e;
+  cursor: pointer;
+}
+.sidebar ul li a:focus {
+  color: #f04342;
+  cursor: pointer;
+}
+.sidebar ul li a.active {
+  color: #f04342;
+  cursor: pointer;
+}
+
+.sidebar ul li a:hover img {
+  filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%)
+    hue-rotate(346deg) brightness(100%) contrast(95%);
+}
+
+.sidebar ul li a:focus img,
+.sidebar ul li a.active img {
+  filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%)
+    hue-rotate(346deg) brightness(92%) contrast(95%);
+}
+
+.sidebar-footer {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 2vw;
+  position: absolute;
+  bottom: 18.5vh;
+  width: 100%;
+}
+
+.sidebar-footer li {
+  height: 6vh;
+}

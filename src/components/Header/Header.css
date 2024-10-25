@@ -1,0 +1,21 @@
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    color: white;
+    background-color: #ffffff;
+    padding: 1vh 5%;
+    z-index: 1000;
+    border-bottom: 0.2vh solid #e0e0e0;
+    height: 16%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header img {
+    margin-left: 0;
+    padding-top: 10px;
+    height: 74%;
+}
