@@ -362,7 +362,7 @@ const ProjectViewPage: React.FC = () => {
                   alignItems: "center",
                 }}
               >
-                <RiseLoader loading={!projects.length} size={40} color="red" />
+                <RiseLoader loading={!projects.length} size={40} color="#7927E0" />
               </div>
             ) : (
               <table className="table">

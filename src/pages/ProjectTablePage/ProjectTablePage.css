@@ -115,15 +115,15 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-    background-color: #dd4746;
-    border: 0.2vh solid #dd4746;
+    background-color: #7927E0;
+    border: 0.2vh solid #7927E0;
 }
 
 input[type="checkbox"]:checked::before {
     content: "";
     position: absolute;
-    background-color: #dd4746;
-    border: 0.2vh solid #dd4746;
+    background-color: #7927E0;
+    border: 0.2vh solid #7927E0;
     top: 0.1vh;
     left: 0.25vw;
     width: 0.23vw;
@@ -271,10 +271,10 @@ td {
     width: 100%;
     padding: 0.7vh 0.4vw;
     box-sizing: border-box;
-    background-color: #e8e8e8;
+    background-color: #F0E5FF;
     border: none;
     height: 100%;
-    border-radius: 3px;
+    border-radius: 1.5vh;
     padding-right: 1.5vw;
     font-size: 0.75vw;
 }
@@ -290,9 +290,9 @@ td {
     right: 0.23vw;
     border-radius: 4px;
     transform: translateY(-50%);
-    width: 0.75vw;
+    width: 0.9vw;
     height: auto;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     padding: 1.29vh 0.75vw;
     /* margin-top: 4px; */
     /* margin-left: 15px; */
