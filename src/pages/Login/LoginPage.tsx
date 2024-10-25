@@ -77,7 +77,7 @@ const LoginPage: React.FC = () => {
             <div className="form-group">
               <input
                 type="text"
-                className="form-control"
+                className="login-form-control"
                 placeholder="ФИО"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -88,7 +88,7 @@ const LoginPage: React.FC = () => {
           <div className="form-group">
             <input
               type="text"
-              className="form-control"
+              className="login-form-control"
               placeholder="Логин"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
@@ -98,7 +98,7 @@ const LoginPage: React.FC = () => {
           <div className="form-group password-group">
             <input
               type={passwordVisible ? "text" : "password"}
-              className="form-control"
+              className="login-form-control"
               placeholder="Пароль"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
             <div className="form-group">
               <input
                 type={passwordVisible ? "text" : "password"}
-                className="form-control"
+                className="login-form-control"
                 placeholder="Повторите пароль"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}

@@ -1,0 +1,18 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    text-align: center;
+    font-size: 2.1vh;
+    color: #999494;
+    margin-top: 2.6vh;
+}
+.pagination_content {
+    width: 10vw;
+}
+.pagination button:hover {
+    color: #dd4746;
+}
+.pagination button {
+    margin: 0 0.2vw;
+}

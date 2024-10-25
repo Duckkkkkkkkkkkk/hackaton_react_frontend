@@ -38,11 +38,11 @@
   text-align: center;
 }
 
-.form-control {
+.login-form-control {
   width: calc(100% - 10vw);
   padding: 0 1vw 0 1vw;
   background-color: #e8e8e8 !important;
-  border-radius: 10px;
+  border-radius: 1vh;
   color: #656468;
   font-family: 'Arial', sans-serif;
   font-size: 1.7vh;
@@ -56,12 +56,18 @@
   appearance: none; /* для других браузеров */
 }
 
-.form-control::-ms-reveal, /* для Edge */
-.form-control::-ms-clear {
+.login-form-control::-ms-reveal, /* для Edge */
+.login-form-control::-ms-clear {
   display: none;
 }
 
-.form-control:focus {
+.login-form-control:hover {
+  background-color: #DDDBDB !important;;
+}
+
+.login-form-control:focus {
+  background-color: #DDDBDB !important;;
+  border: solid 1px #656468;
   outline: none;
 }
 
