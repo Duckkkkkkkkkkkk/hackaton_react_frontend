@@ -1,0 +1,217 @@
+.universal-form {
+    color: #656468;
+    font-size: 2.15vh;
+    /*  margin-left: 20%; */
+}
+.form_content {
+    margin-bottom: 30px;
+}
+.form-row .btnContainer {
+    float: right;
+    position: absolute;
+    top: 36.5vh;
+    right: 10vw;
+}
+
+.form-task-row .btnContainer {
+    float: right;
+    position: absolute;
+    top: 29.5vh;
+    right: 21vw;
+}
+
+.form-column .btnContainer {
+    margin-top: 20px;
+}
+
+.form_group {
+    margin-top: 1.7vh;
+    display: flex;
+}
+.form_group input {
+    width: 30vw;
+    height: 5.25vh;
+    background-color: #e8e8e8;
+    border: none;
+    font-size: 2.15vh;
+    padding-left: 0.8vw;
+    margin-left: 1.3vw;
+}
+
+.form_group label {
+    padding: 1.7vh 0;
+    width: 11.5vw;
+}
+.form_group_status {
+    width: 30vw;
+    height: 5.25vh;
+    background-color: #e8e8e8;
+    border: none;
+    font-size: 2.15vh;
+    padding-left: 0.8vw;
+    margin-left: 1.3vw;
+}
+::placeholder {
+    color: #adadad;
+}
+.btnContainer {
+    display: flex;
+    justify-content: flex-end;
+    width: 43.7vw;
+    margin-top: 1.7vh;
+}
+.btnTableAdd {
+    background-color: #8beba0;
+    width: 10.5vw;
+    height: 5vh;
+    border-radius: 4px;
+    font-size: 2.15vh;
+    color: #656468;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-left: 1.3vw;
+    margin-bottom: 2.5vh;
+}
+
+.btnTableAdd img {
+    position: absolute;
+    left: 1.3vw;
+    width: 2.8vh;
+    height: auto;
+    bottom: 50%;
+    transform: translateY(50%);
+}
+.btnTableAdd:hover {
+    background-color: #96e2a7;
+}
+
+.project-name-container {
+    position: relative;
+}
+
+.project-name-container .icon-select {
+    position: absolute;
+    right: 0.7vw;
+    top: 2.7vh;
+    width: 0.5vw;
+    height: auto;
+    bottom: 0.2vh;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.project-name-dropdown {
+    position: absolute;
+    z-index: 1;
+    width: 31.1vw;
+    background: #fff;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    margin: 0 0 0 2.55vh;
+    padding-inline-start: 0;
+}
+
+.project-name-dropdown li {
+    padding: 0.65vh 0;
+    font-family: "Arial" sans-serif;
+    font-size: 1.6vh;
+    font-weight: 400;
+    padding-left: 1vw;
+    color: #000;
+    cursor: pointer;
+}
+
+.project-name-dropdown li:hover {
+    background: #f0f0f0;
+}
+
+.non-editable {
+    color: #adadad;
+    pointer-events: none;
+}
+
+.user-input-container {
+    position: relative;
+    width: 32.25vw;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 0.1vh solid #ccc;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+.custom-menu-container {
+    position: relative;
+}
+.custom-list-dropdown {
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px 0px #00000026;
+    list-style-type: none;
+    background-color: #ffffff;
+    width: 31vw;
+    padding: 10px 0px 10px 00px;
+    margin-left: 15px;
+    position: absolute;
+    z-index: 1000;
+    /*  top: 100%; */
+    margin: 0;
+    margin-left: 17px;
+}
+.contact_person_input {
+}
+.custom-list-dropdown li {
+    padding: 5px 0px 5px 10px;
+}
+.custom-list-dropdown li:hover {
+    background-color: #b3b3b548;
+}
+.selected-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 94%;
+    margin-left: 20px;
+    margin-top: 7px;
+    font-size: 15px;
+}
+.selected-list_span {
+    padding: 4px 8px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px 0px #00000026;
+    color: #000000;
+}
+
+.icon-button {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.icon-button img {
+    width: 10px;
+}
+.user-select-button img {
+    position: absolute;
+    top: 2.8vh;
+    left: 31.1vw;
+    width: 0.5vw;
+    height: 0.7vh;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
