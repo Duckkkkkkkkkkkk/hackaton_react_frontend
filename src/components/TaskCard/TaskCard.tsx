@@ -8,14 +8,16 @@ type TaskCardProps = {
   project: string;
   status: string;
   onDragStart: (e: React.DragEvent, title: string) => void;
+  onClick: () => void;
 };
 
-const TaskCard: React.FC<TaskCardProps> = ({ title, user, project, status, onDragStart }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ title, user, project, status, onDragStart, onClick }) => {
   return (
     <div 
       className={`task-card ${status}`} 
       draggable 
       onDragStart={(e) => onDragStart(e, title)}
+      onClick={onClick}
     >
       <div className="task-card-content">
         <div className="task-card-header">

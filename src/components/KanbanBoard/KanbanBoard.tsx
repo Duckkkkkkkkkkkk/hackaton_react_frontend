@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './KanbanBoard.css';
 import TaskCard from '../TaskCard/TaskCard';
+import TaskModal from '../TaskModel/TaskModal';
 
 const KanbanBoard: React.FC = () => {
   const [tasks, setTasks] = useState<{
@@ -20,6 +21,19 @@ const KanbanBoard: React.FC = () => {
       { title: 'Задача 5', user: 'Пользователь 4', project: 'Проект D' },
     ],
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<{ title: string; user: string; project: string; description: string; status: string } | null>(null);
+
+  const handleTaskClick = (task: { title: string; user: string; project: string; description: string; status: string }) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedTask(null);
+  };
 
   const handleOnDragStart = (
     e: React.DragEvent,
@@ -63,6 +77,7 @@ const KanbanBoard: React.FC = () => {
                 project={task.project}
                 status="backlog"
                 onDragStart={(e) => handleOnDragStart(e, task, 'backlog')}
+                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
               />
             </div>
           ))}
@@ -78,6 +93,7 @@ const KanbanBoard: React.FC = () => {
                 project={task.project}
                 status="inProgress"
                 onDragStart={(e) => handleOnDragStart(e, task, 'inProgress')}
+                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
               />
             </div>
           ))}
@@ -93,6 +109,7 @@ const KanbanBoard: React.FC = () => {
                 project={task.project}
                 status="review"
                 onDragStart={(e) => handleOnDragStart(e, task, 'review')}
+                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
               />
             </div>
           ))}
@@ -108,11 +125,21 @@ const KanbanBoard: React.FC = () => {
                 project={task.project}
                 status="done"
                 onDragStart={(e) => handleOnDragStart(e, task, 'done')}
+                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
               />
             </div>
           ))}
         </div>
       </div>
+      <TaskModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        title={selectedTask?.title || ''}
+        user={selectedTask?.user || ''}
+        project={selectedTask?.project || ''}
+        status={selectedTask?.status || ''}
+        description={selectedTask?.description || ''}
+      />
     </div>
   );
 };
