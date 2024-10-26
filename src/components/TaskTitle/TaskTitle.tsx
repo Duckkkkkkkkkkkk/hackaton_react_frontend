@@ -8,7 +8,7 @@ type TaskTitleProps = {
 
 const TaskTitle: React.FC<TaskTitleProps> = ({ type }) => {
   const titleMap = {
-    backlog: { label: "Беклог", colorClass: "backlog" },
+    backlog: { label: "Бэклог", colorClass: "backlog" },
     inProgress: { label: "В процессе", colorClass: "in-progress" },
     review: { label: "Проверка", colorClass: "review" },
     done: { label: "Выполнено", colorClass: "done" },

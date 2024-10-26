@@ -13,7 +13,7 @@
 }
 
 .breadcrumb-container.sub-page {
-  padding-top: 4vh;
+  padding-top: 0;
   margin-left: 0;
 }
 
@@ -32,11 +32,11 @@
 }
 
 .breadcrumb-title:hover {
-  color: #F34F4E;
+  color: #7927E0;
 }
 
 .breadcrumb-title:active {
-  color: #F04342;
+  color: #7927E0;
 }
 
 
@@ -57,9 +57,9 @@
 }
 
 .breadcrumb-current:hover {
-  color: #F34F4E;
+  color: #7927E0;
 }
 
 .breadcrumb-current:active {
-  color: #F04342;
+  color: #7927E0;
 }

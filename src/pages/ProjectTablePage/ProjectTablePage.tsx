@@ -6,6 +6,7 @@ import FormForProjects from "../../components/UniversalForm/FormForProjects";
 import Pagination from "../../components/Pagination/Pagination";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 import Snackbar, { SnackbarType } from "../../components/Snackbar/Snackbar";
+import StatusManager from "../..//components/StatusManager/StatusManager";
 
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { RiseLoader } from "react-spinners";
@@ -33,7 +34,7 @@ const ProjectFields = [
     options: [
       { value: "COMPLETED", label: "Завершен" },
       { value: "INPROGRESS", label: "В процессе" },
-      { value: "NOTSTARTED", label: "Не начато" },
+      { value: "BACKLOG", label: "Бэклог" },
       { value: "CHECK", label: "Проверка" },
       { value: "CANCEL", label: "Отмена" },
     ],
@@ -79,6 +80,7 @@ const statusColors: { [key: string]: string } = {
   CHECK: "#ebdc8b",
   CANCEL: "#EB9C8B",
 };
+
 
 const ProjectViewPage: React.FC = () => {
   useLogout();
@@ -270,6 +272,8 @@ const ProjectViewPage: React.FC = () => {
     }
   };
 
+  
+
   const breadcrumbs = selectedProject && selectedProject.title
   ? [
       { name: "Проекты", path: "/project_view", onClick: handleCloseForm },
@@ -362,7 +366,7 @@ const ProjectViewPage: React.FC = () => {
                   alignItems: "center",
                 }}
               >
-                <RiseLoader loading={!projects.length} size={40} color="red" />
+                <RiseLoader loading={!projects.length} size={40} color="#7927E0" />
               </div>
             ) : (
               <table className="table">

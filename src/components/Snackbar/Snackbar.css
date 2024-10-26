@@ -9,7 +9,7 @@
     color: #000;
     box-shadow: 0vh 0vw 0.2vh rgba(0, 0, 0, 0.08);
     width: auto;
-    height: 8.5vh;
+    height: 7.5vh;
     border-radius: 13.33px;
   }
 
@@ -18,7 +18,7 @@
     align-items: center;
     box-shadow: 0vh 0vw 2.7vh rgba(0, 0, 0, 0.16);
     border-radius: 13.33px;
-    height: 8.5vh;
+    height: 7vh;
   }
   
   .snackbar-icon {
