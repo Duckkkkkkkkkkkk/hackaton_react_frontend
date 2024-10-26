@@ -10,6 +10,7 @@ import ProjectTablePage from "./pages/ProjectTablePage/ProjectTablePage";
 import TaskPage from "./pages/TasksPage/TasksPage";
 import MainAdminPanel from "./pages/MainAdminPanel/MainAdminPanel";
 import Profile from "./pages/Profile/Profile";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const MainLayout: React.FC = () => {
           <Route path="/tasks" element={<TaskPage />} />
           <Route path="/main-admin-panel" element={<MainAdminPanel />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </>
