@@ -156,3 +156,12 @@
   outline: none;
 }
 
+@media screen and (max-width: 480px) {
+  .login-form {
+    width: 90%;
+  }
+
+  .login-btn {
+    width: 80%
+  }
+}

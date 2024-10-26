@@ -1,7 +1,7 @@
 .snackbar {
     position: fixed;
     z-index: 1000;
-    top: 4.5vh;
+    top: 2.5vh;
     left: 50vw;
     transform: translateX(-50%);
     font-weight: 400;
@@ -50,10 +50,19 @@
   }
 
   .snackbar-close img:hover {
-    filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%) hue-rotate(346deg) brightness(100%) contrast(95%);
+    filter: brightness(0) saturate(100%) invert(28%) sepia(64%) saturate(3445%) hue-rotate(255deg) brightness(100%) contrast(90%);
 }
 
 .snackbar-close img:active {
-    filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%) hue-rotate(346deg) brightness(92%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(28%) sepia(64%) saturate(3445%) hue-rotate(255deg) brightness(100%) contrast(90%);
 }
-  
+ 
+@media screen and (max-width: 480px) {
+  .snackbar {
+    width: 80%;
+  }
+
+  .snackbar-text {
+    font-size: 120%;
+  }
+}

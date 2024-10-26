@@ -44,7 +44,7 @@
   background-color: #F6EFFF;
 }
 .title-link:hover {
-  color: #f34f4e;
+  color: #7927E0;
 }
 
 .add-container {
@@ -62,7 +62,7 @@
 }
 
 .add-button:hover {
-  color: #f34f4e;
+  color: #7927E0;
 }
 
 .add-icon {
@@ -74,4 +74,24 @@
 
 .add-button:hover .add-icon {
   content: url("../../images/icons/icon_plus_hover.svg");
+}
+
+
+@media screen and (max-width: 480px) {
+  .menu-container {
+    padding: 1vh;
+  }
+
+  .menu-item {
+    padding-bottom: 2vh;
+  }
+
+  .menu-title {
+    font-size: 2.5vh;
+  }
+
+  .menu-link {
+    font-size: 2.3vh;
+    padding: 2vh 1vh;
+  }
 }
