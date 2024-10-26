@@ -1,0 +1,102 @@
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+.profile-title {
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    font-size: 3vh;
+    text-align: start;
+    color: black;
+}
+
+.profile-form-group {
+    font-family: "Raleway", sans-serif;
+    width: 30.5vw;
+    height: auto;
+}
+
+.profile-form {
+    width: 100%;
+    margin-bottom: 1.7vh;
+}
+
+.profile-form-title {
+    color: #656468;
+    font-size: 2.3vh;
+    font-weight: 400;
+    line-height: 3.3vh;
+    text-align: start;
+    margin-bottom: 0;
+}
+
+.profile-form-control {
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    background-color: #E8E8E8;
+    padding: 1.7vh 0.8vw;
+    font-family: 'Arial', sans-serif;
+    color: black;
+    font-weight: 400;
+    font-size: 2.3vh;
+    line-height: 3.3vh;
+    text-align: start;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.profile-form-control:hover {
+    background-color: #DDDBDB;
+}
+
+.profile-form-control:focus {
+    background-color: #DDDBDB;
+    border: 0.1vh solid #656468;
+    outline: none;
+}
+
+.stack-name-container {
+    position: relative;
+}
+  
+.stack-name-container .profile-icon-select {
+    position: absolute;
+    right: -0.7vw;
+    top: 6.5vh;
+    width: auto;
+    height: 0.5vh;
+    bottom: 0.2vh;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+  
+.stack-name-dropdown {
+    position: absolute;
+    z-index: 1;
+    width: 32.1vw;
+    background: #fff;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 0.1vw 1vh rgba(0, 0, 0, 0.15);
+    list-style: none;
+    margin: 0;
+    max-height: 30vh;
+    padding-inline-start: 0;
+}
+  
+.stack-name-dropdown li {
+    padding: 0.65vh 0;
+    font-family: "Arial", sans-serif;
+    font-size: 1.6vh;
+    font-weight: 400;
+    padding-left: 1vw;
+    color: #000;
+    cursor: pointer;
+}
+  
+.stack-name-dropdown li:hover {
+    background: #f0f0f0;
+}
+  

@@ -15,7 +15,7 @@
   margin-top: 11vh;
   background-color: #fff;
   border-radius: 1.7vh;
-  box-shadow: 0px 15px 68px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1vh 5vh 0px rgba(121, 39, 224, 0.08);
   width: 100%;
   width: 25vw;
   max-width: 610px;
@@ -129,20 +129,20 @@
 }
 
 .login-btn:hover {
-  background-color: #7927E0;
+  background-color: #9246F3;
 }
 
 .login-btn:active {
-  background-color: #7927E0;
+  background-color: #AD6CFE;
 }
 
 .forgot-password a:hover {
-  color: #7927E0;
+  color: #9246F3;
   text-decoration: underline;
 }
 
 .forgot-password a:active {
-  color: #7927E0;
+  color: #AD6CFE;
   text-decoration: underline;
 }
 

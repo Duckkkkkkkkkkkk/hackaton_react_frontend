@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useLayout } from "../../components/Context/LayoutContext";
-import "./styles/NotFoundPage.css";
-
 import { useLogout } from "../../hooks/useLogout";
+
+import image404 from "../../images/img/img404.png"
+
+import "./NotFoundPage.css";
 
 const NotFoundPage: React.FC = () => {
   useLogout();
@@ -26,6 +28,7 @@ const NotFoundPage: React.FC = () => {
           <p className="subtitle">Страница не найдена.</p>
           <p className="description">Извините, такой страницы не существует.</p>
         </div>
+        <img src={image404} alt="Cow" className="image" />
       </div>
     </div>
   );

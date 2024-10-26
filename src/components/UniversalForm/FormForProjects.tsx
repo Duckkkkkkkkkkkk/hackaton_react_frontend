@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import InputMask from "react-input-mask-next";
 import { Projects, fetchUsers } from "../../api/projects/ProjectsApi";
 // import { fetchProjectTitles } from "../../api/projectTasks/TaskApi";
-import "./UniversalForm.css";
+import "../UniversalForm/UniversalForm.css";
 import icon_check from "../../images/icons/icon_check.svg";
 import icon_select from "../../images/icons/icon_down_form.svg";
 import StatusManager from "../StatusManager/StatusManager";
-// import {
-//   User,
-//   fetchProject,
-// } from "../../api/userTasks/userApi";
+import {
+  User,
+  fetchProject,
+} from "../../api/user/userApi";
+
+import "./UniversalForm.css"
 
 interface FormForProjectsProps {
   item: any | null;
@@ -53,7 +55,9 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
     []
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const userRole = localStorage.getItem("user_role");
   const isAdmin = userRole === "ADMIN";
 
@@ -66,16 +70,20 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
   // }, []);
 
   useEffect(() => {
+    fetchUsers().then((fetchedUsers) => setUsers(fetchedUsers));
+  }, []);
+
+  useEffect(() => {
     if (item) {
       const initialState = { ...item };
       fields.forEach((field) => {
-        // if (field.name === "users" && Array.isArray(initialState[field.name])) {
-        //   const selectedUserObjects = initialState[field.name];
-        //   setSelectedUsers(selectedUserObjects);
-        //   initialState[field.name] = selectedUserObjects
-        //     .map((user: any) => user.lastName)
-        //     .join(", ");
-        // }
+        if (field.name === "users" && Array.isArray(initialState[field.name])) {
+          const selectedUserObjects = initialState[field.name];
+          setSelectedUsers(selectedUserObjects);
+          initialState[field.name] = selectedUserObjects
+            .map((user: any) => user.lastName)
+            .join(", ");
+        }
         if (field.name.endsWith("_date") && initialState[field.name]) {
           initialState[field.name] = formatDate(initialState[field.name]);
         }
@@ -130,6 +138,23 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
     }));
   };
 
+  const toggleUserSelection = (user: User) => {
+    setSelectedUsers((prevSelected) => {
+      const isAlreadySelected = prevSelected.find((u) => u.id === user.id);
+      if (isAlreadySelected) {
+        return prevSelected.filter((u) => u.id !== user.id);
+      } else {
+        return [...prevSelected, user];
+      }
+    });
+  };
+
+  const selectedUserNames = selectedUsers.map((user) => `${user.lastName} ${user.firstName}`).join(", ");
+
+  const handleUserDropdownClick = () => {
+    setIsUserDropdownOpen(!isUserDropdownOpen);
+  };
+
   const handleProjectSelect = (title: string) => {
     setFormState((prevState: any) => ({
       ...prevState,
@@ -160,8 +185,8 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
         }
       }
     });
-    console.log("Подготовленные данные для отправки:");
-    console.log(preparedData);
+    preparedData.users = selectedUsers.map(user => user.id);
+    console.log("Подготовленные данные для отправки:", preparedData);
     onSubmit(preparedData);
   };
 
@@ -191,17 +216,16 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
     return true;
   };
 
-  // const [users, setUsers] = useState<User[]>([]);
   const [projects, setProjects] = useState<Projects[]>([]);
   const [showUserList, setShowUserList] = useState(false);
 
-  // useEffect(() => {
-  //   if (userRole === "ADMIN") {
-  //     fetchUsers().then((fetchedUsers) => {
-  //       setUsers(fetchedUsers);
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (userRole === "ADMIN") {
+      fetchUsers().then((fetchedUsers) => {
+        setUsers(fetchedUsers);
+      });
+    }
+  }, []);
 
   // useEffect(() => {
   //   fetchProject().then((fetchedUsers) => {
@@ -286,6 +310,45 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
                       </ul>
                     )}
                   </div>
+                ) : field.type === "text" && field.name === "users" ? (
+                  <div className="project-name-container">
+                    <input
+                      type="text"
+                      name={field.name}
+                      placeholder="Выберите пользователей"
+                      value={selectedUserNames}
+                      onChange={handleChange}
+                      required={field.required || false}
+                      onClick={handleUserDropdownClick}
+                      disabled={!isFieldEditable(field.name)}
+                      className={
+                        !isFieldEditable(field.name) ? "non-editable" : ""
+                      }
+                    />
+                    <img
+                      src={icon_select}
+                      alt="select"
+                      className="icon-select"
+                      onClick={handleUserDropdownClick}
+                    />
+                    {isUserDropdownOpen && (
+                      <ul className="user-dropdown">
+                        {users.map((user) => (
+                          <li key={user.id} className="user-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                checked={selectedUsers.some((u) => u.id === user.id)}
+                                onChange={() => toggleUserSelection(user)}
+                                className="user-checkbox"
+                              />
+                              {user.lastName} {user.firstName}
+                            </label>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 ) : field.type === "text" && field.name.endsWith("_date") ? (
                   <InputMask
                     mask="99-99-9999"
@@ -312,6 +375,7 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
                       !isFieldEditable(field.name) ? "non-editable" : ""
                     }
                   />
+                  
                 ) : (
                   <input
                     type={field.type}

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-// import icon1 from "../../images/icons/icon1.svg";
+import icon_users from "../../images/icons/icon1.svg";
 // import icon2 from "../../images/icons/icon2.svg";
 // import icon3 from "../../images/icons/icon3.svg";
 // import icon4 from "../../images/icons/icon4.svg";
@@ -38,49 +38,19 @@ const Sidebar: React.FC = () => {
           <>
             <li>
               <Link
-                to="/specialist"
-                onClick={() => setActiveLink("/specialist")}
-                className={activeLink === "/specialist" ? "active" : ""}
+                to="/users"
+                onClick={() => setActiveLink("/users")}
+                className={activeLink === "/users" ? "active" : ""}
               >
-                {/* <img src={icon1} alt="icon1" className="icon" /> */}
-                <p>Специалисты</p>
+                <img src={icon_users} alt="icon1" className="icon" />
+                <p>Участники</p>
               </Link>
             </li>
             <li>
               <Link
-                to="/interns"
-                onClick={() => setActiveLink("/interns")}
-                className={activeLink === "/interns" ? "active" : ""}
-              >
-                {/* <img src={icon2} alt="icon2" className="icon" /> */}
-                <p>Стажёры</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/trainee"
-                onClick={() => setActiveLink("/trainee")}
-                className={activeLink === "/trainee" ? "active" : ""}
-              >
-                {/* <img src={icon3} alt="icon3" className="icon" /> */}
-                <p>Практиканты</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/customer"
-                onClick={() => setActiveLink("/customer")}
-                className={activeLink === "/customer" ? "active" : ""}
-              >
-                {/* <img src={icon4} alt="icon4" className="icon" /> */}
-                <p>Заказчики</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/project"
-                onClick={() => setActiveLink("/project")}
-                className={activeLink === "/project" ? "active" : ""}
+                to="/projects"
+                onClick={() => setActiveLink("/projects")}
+                className={activeLink === "/projects" ? "active" : ""}
               >
                 {<img src={icon_projects} alt="icon_projects" className="icon" />}
                 <p>Проекты</p>
@@ -88,27 +58,18 @@ const Sidebar: React.FC = () => {
             </li>
           </>
         );
+      case "GUEST":
       case "SPECIALIST":
         return (
           <>
             <li>
               <Link
-                to="/project_view"
-                onClick={() => setActiveLink("/project_view")}
-                className={activeLink === "/project_view" ? "active" : ""}
+                to="/projects"
+                onClick={() => setActiveLink("/projects")}
+                className={activeLink === "/projects" ? "active" : ""}
               >
-                {/* <img src={icon5} alt="icon5" className="icon" /> */}
+                {<img src={icon_projects} alt="icon_projects" className="icon" />}
                 <p>Проекты</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/tasks"
-                onClick={() => setActiveLink("/tasks")}
-                className={activeLink === "/tasks" ? "active" : ""}
-              >
-                {/* <img src={icon6} alt="icon6" className="icon" /> */}
-                <p>Задачи</p>
               </Link>
             </li>
           </>

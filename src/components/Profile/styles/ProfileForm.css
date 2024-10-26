@@ -1,0 +1,148 @@
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+.profile-title {
+    font-family: "Raleway", sans-serif;
+    font-weight: 500; 
+    font-size: 3vh;
+    text-align: start;
+    color: black;
+}
+
+.save-button {
+    margin-left: 36.5vw;
+}
+
+.edit-profile-button {
+    margin-left: -3.55vw;
+}
+
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+  
+.user-form-group {
+    font-family: "Raleway", sans-serif;
+    width: 56vw;
+    height: auto;
+    margin-left: 0.4vw;
+    margin-top: 4vh;
+}
+  
+.user-form {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 2vh;
+}
+  
+.user-form-title {
+    width: 15vw;
+    color: #656468;
+    font-size: 2.15vh;
+    font-weight: 400;
+    text-align: start;
+    margin-right: 1.5vw;
+}
+  
+.user-form-control {
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    background-color: #E8E8E8;
+    padding: 1.7vh 0.8vw;
+    font-family: 'Arial', sans-serif;
+    color: black;
+    font-weight: 400;
+    font-size: 2.15vh;
+    line-height: 3.3vh;
+    text-align: start;
+    transition: background-color 0.3s, border 0.3s;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.user-control{
+    width: 54.5vw;
+    border: none;
+    border-radius: 4px;
+    background-color: #E8E8E8;
+    padding: 0.2vh 1.6vh;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.phone-error-message {
+    color: #F04342;
+    font-size: 1.55vh;
+    font-weight: 400;
+    position: absolute;
+    top: -1.6vw;
+    left: 11.75vw;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.user-form-status {
+    width: 7.3vw;
+    color: #1A1A1A;
+    font-size: 1.6vh;
+    font-weight: 400;
+    line-height: 1.8vh;
+    padding: 0.6vh 0.5vw;
+    border-radius: 12px;
+    text-align: center;
+    transition: background-color 0.3s, border 0.3s;
+}
+  
+.user-form-control.wide {
+    height: 15vh;
+    padding-top: 1vh;
+}
+  
+.user-form-control.wider {
+    width: 100%;
+}
+  
+.user-form-control:hover {
+    background-color: #DDDBDB;
+}
+
+.user-form-control.read-only {
+    pointer-events: none;
+    color: #adadad;
+}
+  
+.user-form-control:focus {
+    background-color: #DDDBDB;
+    border: 0.1vh solid #656468;
+    outline: none;
+}
+
+.status-default {
+    background-color: white;
+    border: #FFC684 0.1vh solid;
+}
+  
+.status-active {
+    background-color: #E8E8E8;
+}
+  
+.status-in-process {
+    background-color: #DE8BEB;
+}
+  
+.status-bad {
+    background-color: #EB9C8B;
+}
+  
+.status-specialist {
+    background-color: #8BC8EB;
+}
+  

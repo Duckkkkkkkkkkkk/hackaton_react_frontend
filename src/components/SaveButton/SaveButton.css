@@ -1,0 +1,34 @@
+.save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 0.8vh 0.9vw;
+    background-color: #8BEBA0;
+    color: hsl(255, 2%, 40%);
+    width: 9.5vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-button p {
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    font-size: 2.2vh;
+    line-height: 3.3vh;
+    margin: 0;
+}
+
+.save-button img {
+    margin-right: 0.8vw;
+    width: 2.8vh;
+    height: auto;
+}
+
+.save-button:hover {
+    background-color: #84F59D;
+}
+
+.save-button:active {
+    background-color: #7BFF98;
+}
