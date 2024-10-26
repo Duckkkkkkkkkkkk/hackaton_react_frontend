@@ -1,5 +1,7 @@
 import React from 'react';
 import './TaskModal.css';
+import deleteIcon from "../../images/icons/icon_delete.svg";
+import checkIcon from "../../images/icons/icon_check.svg"
 
 type TaskModalProps = {
   isOpen: boolean;
@@ -12,30 +14,37 @@ type TaskModalProps = {
 };
 
 const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, title, user, project, status, description }) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className={`modal-overlay ${isOpen ? 'modal-open' : ''}`} onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>{title}</h2>
         <p>{description}</p>
         <label>
-          Ответственный:
+          <span>Ответственный:</span>
           <input type="text" defaultValue={user} />
         </label>
         <label>
-          Проект:
+          <span>Проект:</span>
           <input type="text" value={project} readOnly />
         </label>
         <label>
-          Статус:
+          <span>Статус:</span>
           <input type="text" value={status} readOnly />
         </label>
-        <label>
-          Комментарий:
+        <label className='comlabel'>
+          <a className='commentary'>Комментарий:</a>
           <textarea placeholder="Введите комментарий"></textarea>
         </label>
-        <button onClick={onClose}>Закрыть</button>
+        <div className='buttons'>
+        <button className="del_btn" /*onClick={onClose}*/>
+          <img src={deleteIcon} alt="Delete task" className='del_btn_img'/>
+          Удалить
+        </button>
+        <button className='edit_btn' /*onClick={}*/>
+          <img src={checkIcon} alt="Save task" className='del_btn_img'/>
+          Сохранить
+        </button>
+        </div>
       </div>
     </div>
   );

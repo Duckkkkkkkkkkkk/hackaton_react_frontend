@@ -1,22 +1,123 @@
 .modal-overlay {
-    position: fixed;
-    top: 40%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 20px;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
+  position: fixed;
+  top:12vh;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100; 
+}
+
+.modal-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  background: #E8E8E8;
+  padding: 4vh;
+  border-radius: 0.8vh 0 0 0.8vh;
+  max-height: 80vh;
+  height: 100%;
+  max-width: 60vh;
+  width: 100%;
+  box-shadow: 0 0.2vh 1vhx rgba(0, 0, 0, 0.1);
+  transform: translateX(100%); /* Начальное состояние вне экрана */
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.modal-open .modal-content {
+  transform: translateX(0); /* Плавный показ окна */
+}
+
+.comlabel{
+  display: flex;
+  flex-direction: column;
+}
+
+.commentary {
+  font-weight: 500;
+}
+
+textarea {
+  resize: none;
+  height: 20vh;
+  width: 170%;
+  border: none;
+  border-radius: 1vh;
+}
+
+label {
+  max-width: 35vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 2vh;
+}
+
+label span {
+  padding: 0.5vh;
+  background-color: #CFA9FF;
+  border-radius: 1vh;
+  font-weight: 500;
+}
+
+label input {
+  all: unset;
+}
+
+.buttons {
+  display: flex;
+  gap: 5vh;
+  padding: 1vh;
+  margin-top: auto;
+}
+
+button {
+  font-size: large;
+}
+
+.del_btn {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+  background: #FF7C73;
+  padding: 1vh;
+  border-radius: 1vh;
+  color: white;
+  transition: 0.3s;
+}
+
+.del_btn_img{
+  height: 2vh;
+  filter: brightness(0) invert(1);
+}
+
+.del_btn:hover {
+  background: #ff4f43;
+}
+
+.edit_btn {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+  background: #CFA9FF;
+  padding: 1vh;
+  border-radius: 1vh;
+  color: white;
+  transition: 0.3s;
+}
+
+.edit_btn:hover{
+  background: #a357ff;
+}
