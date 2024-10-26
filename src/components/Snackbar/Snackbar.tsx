@@ -6,6 +6,8 @@ import failureIcon from '../../images/icons/icon_failure.svg';
 import closeIcon from '../../images/icons/icon_close_modal.svg';
 
 export type SnackbarType = 'successAdd' | 
+                    'successRegister' |
+                    'failureEmail' |
                     'failureLogin' | 
                     'failurePassword' | 
                     'differentPassword' | 
@@ -23,6 +25,14 @@ const snackbarContent: Record<SnackbarType, { icon: string; message: string }> =
     successAdd: {
     icon: successIcon,
     message: 'Успешное добавление!',
+  },
+  successRegister: {
+    icon: successIcon,
+    message: 'Данные для входа отправлены на почту!',
+  },
+  failureEmail: {
+    icon: failureIcon,
+    message: 'Пользователь с такой почтой уже существует',
   },
   failureLogin: {
     icon: failureIcon,
