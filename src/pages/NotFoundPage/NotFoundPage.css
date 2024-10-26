@@ -1,0 +1,52 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: -40vw;
+}
+
+.not-found-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 53vw;
+  height: 85vh;
+  text-align: center;
+}
+
+.text {
+  font-family: 'Arial', sans-serif;
+  color: black;
+  width: 30vw;
+  height: auto;
+  line-height: 1.2;
+  margin-top: -10vh;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.title404 {
+  font-size: 24vh;
+  font-weight: 900;
+  margin-bottom: 2vh;
+}
+
+.subtitle {
+  font-size: 4.25vh;
+  font-weight: 700;
+  margin-top: -4vh;
+}
+
+.description {
+  font-size: 2.35vh;
+  font-weight: 400;
+  margin-top: -2vh;
+}
+
+.image {
+  width: 22vw;
+  height: auto;
+  position: absolute;
+  top: 0;
+  right: 20vw;
+}
