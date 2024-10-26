@@ -6,7 +6,7 @@ import FormForProjects from "../../components/UniversalForm/FormForProjects";
 import Pagination from "../../components/Pagination/Pagination";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 import Snackbar, { SnackbarType } from "../../components/Snackbar/Snackbar";
-import StatusManager from "../..//components/StatusManager/StatusManager"; // путь к компоненту
+import StatusManager from "../..//components/StatusManager/StatusManager";
 
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { RiseLoader } from "react-spinners";
