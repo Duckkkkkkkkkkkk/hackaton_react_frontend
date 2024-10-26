@@ -16,6 +16,14 @@ import { useDebounce } from "../../hooks/useDebounce";
 import icon_search from "../../images/icons/icon_search.svg";
 import icons_search_active from "../../images/icons/icon_search_hover.svg";
 import icon_tasks from "../../images/icons/icon_tasks.svg";
+import icon_edit from "../../images/icons/icon_edit.svg";
+import icon_edit_active from "../../images/icons/icon_edit_hover.svg";
+import icon_delete from "../../images/icons/icon_delete.svg";
+import icon_delete_active from "../../images/icons/icon_delete_hover.svg";
+import icon_all from "../../images/icons/icon_all.svg";
+import icon_all_active from "../../images/icons/all_icon_hover.svg";
+import icon_plus from "../../images/icons/icon_plus.svg";
+import icon_plus_active from "../../images/icons/icon_plus_hover.svg";
 
 import "../ProjectTablePage/ProjectTablePage.css";
 
@@ -87,10 +95,15 @@ const ProjectViewPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
+  const shouldAdd = searchParams.get("add") === "true";
 
   const [activeSearchIcon, setActiveSearchIcon] = useState(icon_search);
+  const [activeAllIcon, setActiveAllIcon] = useState(icon_all);
+  const [activePlusIcon, setActivePlusIcon] = useState(icon_plus);
 
   const [projects, setProjects] = useState<Projects[]>([]);
+  // const [isModalOpen, setModalOpen] = useState(shouldAdd);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [initialProjectData, setInitialProjectData] =
     useState<Partial<Projects> | null>(null);
@@ -104,7 +117,8 @@ const ProjectViewPage: React.FC = () => {
     ProjectFields.map((field) => field.name)
   );
   const [selectedProject, setSelectedProject] = useState<Projects | null>(null);
-  const [selectedProjects, setSelectedProjects] = useState<number[]>([]);
+  const [selectedProjectIds, setSelectedProjectIds] = useState<number[]>([]);
+  const [activeDeleteIcon, setActiveDeleteIcon] = useState(icon_delete);
   const [snackbar, setSnackbar] = useState<{
     type: SnackbarType;
     open: boolean;
@@ -143,6 +157,26 @@ const ProjectViewPage: React.FC = () => {
   }, [sortField, sortOrder, debouncedSearchText]);
 
   useEffect(() => {
+    setModalOpen(shouldAdd);
+  }, [shouldAdd]);
+
+  const handleOpenModal = (project: Projects | null) => {
+    setCurrentProject(project);
+    setModalOpen(true);
+  };
+
+  const handleAddProject = () => {
+    setInitialProjectData(null); // Обнуляем данные проекта
+    setModalOpen(true); // Открываем форму
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setCurrentProject(null);
+    setInitialProjectData(null); // Обнуляем данные при закрытии
+  };
+
+  useEffect(() => {
     if (location.pathname === "/project_view") {
       setSelectedProject(null);
     }
@@ -156,6 +190,27 @@ const ProjectViewPage: React.FC = () => {
     } else {
       setSortField(fieldName);
       setSortOrder("asc");
+    }
+  };
+  
+  const handleSelectProject = (projectId: number) => {
+    setSelectedProjectIds((prevSelected) =>
+      prevSelected.includes(projectId)
+        ? prevSelected.filter((id) => id !== projectId)
+        : [...prevSelected, projectId]
+    );
+  };  
+
+  const handleBulkDelete = async () => {
+    console.log("Selected project IDs:", selectedProjectIds);
+    try {
+      await Promise.all(selectedProjectIds.map((id) => deleteProject(id)));
+      setProjects((prevProjects) =>
+        prevProjects.filter((project) => !selectedProjectIds.includes(project.id!))
+      );
+      setSelectedProjectIds([]);
+    } catch (err) {
+      console.error("Ошибка при удалении проектов:", err);
     }
   };
 
@@ -177,29 +232,14 @@ const ProjectViewPage: React.FC = () => {
   const firstItem = lastItem - sumPage;
   const currentItems = sortedProjects.slice(firstItem, lastItem);
 
-  const handleRowClick = (project: Projects) => {
+  // const handleRowClick = (project: Projects) => {
+  //   setSelectedProject(project);
+  //   setInitialProjectData(project);
+  // };
+
+  const handleRowEdit = (project: Projects) => {
     setSelectedProject(project);
     setInitialProjectData(project);
-  };
-
-  const handleCheckboxChange = (projectId: number) => {
-    setSelectedProjects((prevSelected) =>
-      prevSelected.includes(projectId)
-        ? prevSelected.filter((id) => id !== projectId)
-        : [...prevSelected, projectId]
-    );
-  };
-  
-  const handleDeleteSelected = async () => {
-    try {
-      await Promise.all(selectedProjects.map(id => deleteProject(id)));
-      // setProjects(projects.filter(project => !selectedProjects.includes(project.id)));
-      setSelectedProjects([]);
-      setSnackbar({ type: 'successChange', open: true });
-    } catch (error) {
-      console.error('Ошибка при удалении проектов:', error);
-      setSnackbar({ type: 'successDelete', open: true });
-    }
   };
 
   const handleCloseForm = () => {
@@ -224,10 +264,20 @@ const ProjectViewPage: React.FC = () => {
           project.id === selectedProject.id ? { ...project, ...updatedData } : project
         );
         setProjects(updatedProjects);
-        handleCloseForm();
+        handleCloseModal();
       } catch (error) {
         console.error('Ошибка при обновлении проекта:', error);
       }
+    }
+  };
+
+  const handleFormCreate = async (newProjectData: Partial<Projects>) => {
+    try {
+      const newProject = await createProject(newProjectData as Projects);
+      setProjects((prevProjects) => [...prevProjects, newProject]);
+      handleCloseModal();
+    } catch (error) {
+      console.error('Ошибка при создании проекта:', error);
     }
   };
 
@@ -273,15 +323,42 @@ const ProjectViewPage: React.FC = () => {
 
   const breadcrumbs = selectedProject && selectedProject.title
   ? [
-      { name: "Проекты", path: "/project_view", onClick: handleCloseForm },
+      { name: "Проекты", path: "/project_view", onClick: handleCloseForm},
       { name: selectedProject.title, path: `/project_view/${selectedProject.id}` }
     ]
   : [{ name: "Проекты", path: "/project_view", onClick: handleCloseForm }];
 
+  const initialProjectData2 = {
+    name: 'Заголовок проекта',
+    description: 'Описание проекта',
+    status: 'В работе',
+};
+
+const isCreatingNewProject = currentProject === null && isModalOpen;
+
   return (
     <div className="interns-table-page">
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      {selectedProject ? (
+      <button className="project-add-button" onClick={handleAddProject}       style={isCreatingNewProject ? { position: 'absolute', top: '77.5vh' } : {}}
+      >
+        Добавить
+      </button>
+      {isModalOpen && (
+      <div className="modal-background" >
+        <div className="modal-content">
+          <FormForProjects
+            item={initialProjectData2}
+            onSubmit={handleFormCreate}
+            fields={ProjectFields.map((field) => ({
+              ...field,
+              value: initialProjectData2 || '',
+            }))}
+          />
+        </div>
+      </div>
+    )}
+
+      {selectedProject ?(
         <div className="form-container">
           {userRole === "CUSTOMER" && (
             <div className="task-border">
@@ -353,6 +430,11 @@ const ProjectViewPage: React.FC = () => {
               </div>
             </div>
           </div>
+          <div className="all_delete">
+            <button onClick={handleBulkDelete} disabled={selectedProjectIds.length === 0} className="deleteButton">
+              <img src={activeDeleteIcon} alt="Удалить" />
+            </button>
+          </div>
           <div className="project-table">
             {!projects.length ? (
               <div
@@ -369,19 +451,8 @@ const ProjectViewPage: React.FC = () => {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>
-                      <input
-                        type="checkbox"
-                        onChange={() => {
-                          if (selectedProjects.length === projects.length) {
-                            setSelectedProjects([]);
-                          } else {
-                            // setSelectedProjects(projects.map((project) => project.id));
-                          }
-                        }}
-                        checked={selectedProjects.length === projects.length}
-                      />
-                    </th>
+                    <th></th>
+                    <th></th> 
                     {ProjectFields.map(
                       (field) =>
                         visibleFields.includes(field.name) && (
@@ -419,14 +490,23 @@ const ProjectViewPage: React.FC = () => {
                 </thead>
                 <tbody>
                   {currentItems.map((project) => (
-                    <tr key={project.id} onClick={() => handleRowClick(project)} style={{ cursor: 'pointer' }}>
-                              {/* <td>
-          <input
-            type="checkbox"
-            checked={selectedProjects.includes(project.id)}
-            onChange={() => handleCheckboxChange(project.id)}
-          />
-        </td> */}
+                    <tr key={project.id} >
+                      <th className="action">
+                        <input
+                          type="checkbox"
+                          checked={selectedProjectIds.includes(project.id!)}
+                          onChange={() => handleSelectProject(project.id!)}
+                        />                      
+                      </th>
+                      <td>
+                        <img
+                          src={icon_edit}
+                          alt="Edit"
+                          className="edit_icon"
+                          onClick={() => handleRowEdit(project)}
+                          style={{ cursor: "pointer" }}
+                        />
+                      </td>
                       {ProjectFields.map((field) =>
                         visibleFields.includes(field.name) ? (
                           <td key={`${project.id}_${field.name}`}>
@@ -434,11 +514,6 @@ const ProjectViewPage: React.FC = () => {
                           </td>
                         ) : null
                       )}
-                              <td>
-          <button onClick={() => handleRowClick(project)}>
-            <i className="edit-icon">✏️</i>
-          </button>
-        </td>
                     </tr>
                   ))}
                 </tbody>

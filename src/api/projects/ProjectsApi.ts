@@ -99,14 +99,23 @@ export const createProject = async (
   project: Projects
 ): Promise<Projects> => {
   try {
-    console.log("Отправка данных проекта на сервер:", project);
-    const response = await api.post("/project", project);
+    // Добавляем поле customer с фиксированным значением "Олег"
+    const projectWithCustomer = {
+      ...project,          // Сохраняем существующие поля проекта
+      customer: "Олег",   // Добавляем поле customer
+      contact_person: "Олег",
+      contact_data: "Oleg",
+    };
+
+    console.log("Отправка данных проекта на сервер:", projectWithCustomer);
+    const response = await api.post("/project", projectWithCustomer);
     return response.data;
   } catch (error) {
     console.error("Ошибка при создании проекта:", error);
     throw error;
   }
 };
+
 
 export const updateProject = async (
   id: number,
