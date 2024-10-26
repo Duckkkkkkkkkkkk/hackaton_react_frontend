@@ -9,4 +9,13 @@
     font-size: 1.4vw;
     margin-top: 5.5vh;
 }
-  
+
+/* @media screen and (max-width: 480px) {
+    body {
+        padding-top: 10vh;
+    }
+    
+    .task-titles {
+        gap: 130vh;
+    }
+} */

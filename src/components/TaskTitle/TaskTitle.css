@@ -61,3 +61,18 @@
 .task-icon:hover {
     filter: brightness(0) saturate(100%);
 }
+
+/* @media screen and (max-width: 480px) {
+  .task-title {
+    width: 400px;
+    height: 150px;
+  }
+
+  .task-text {
+    font-size: 1000%;
+  }
+  
+  .task-background {
+    width: 300%;
+  }
+} */

@@ -17,3 +17,23 @@
 .header img {
     height: 40%;
 }
+
+.icon_burger {
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+    .header {
+        width: 92%;
+        height: 5%;
+        justify-content: space-between;
+    }
+
+    .header img {
+        height: 40%;
+    }
+
+    .icon_burger {
+        display: flex;
+    }
+}

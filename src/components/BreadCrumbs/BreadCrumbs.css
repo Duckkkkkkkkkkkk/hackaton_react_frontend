@@ -63,3 +63,19 @@
 .breadcrumb-current:active {
   color: #7927E0;
 }
+
+/* @media screen and (max-width: 480px) {
+  .breadcrumb-container {
+    width: 420%;
+    height: 15vh;
+    gap: 3vh;
+  }
+
+  .breadcrumb-title {
+    font-size: 400%;
+  }
+
+  .breadcrumb-separator {
+    width: 2%;
+  }
+} */

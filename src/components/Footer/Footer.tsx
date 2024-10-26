@@ -17,13 +17,13 @@ const Footer: React.FC = () => {
       <ul>
         <li>
           <Link to="/profile" className='link'>
-            <img src={icon_profile} alt="icon1" className='icon' />
+            <img src={icon_profile} alt="icon_profile" className='icon' />
             Личный кабинет
           </Link>
         </li>
         <li>
           <Link to="/" onClick={handleLogout} className='link'>
-            <img src={exitIcon} alt="icon2" className='icon' />
+            <img src={exitIcon} alt="icon_logout" className='icon' />
             Выйти
           </Link>
         </li>

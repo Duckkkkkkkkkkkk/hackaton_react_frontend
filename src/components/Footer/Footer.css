@@ -44,20 +44,30 @@
 }
 
 .link:hover {
-  color: #F34F4E;
+  color: #7927E0;
   cursor: pointer;
   background-color: #E8E8E8;
 }
 
 .link:active {
-  color: #F04342;
+  color: #7927E0;
 }
 
 .link:hover .icon {
-  filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%) hue-rotate(346deg) brightness(100%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(28%) sepia(64%) saturate(3445%) hue-rotate(255deg) brightness(100%) contrast(90%);
 }
 
 .link:active .icon,
 .link:focus .icon {
-  filter: brightness(0) saturate(100%) invert(36%) sepia(70%) saturate(2368%) hue-rotate(346deg) brightness(92%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(28%) sepia(64%) saturate(3445%) hue-rotate(255deg) brightness(100%) contrast(90%);
+}
+
+@media screen and (max-width: 480px) {
+ .footer ul {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 2vh;
+  gap: 5vh;
+ }
 }

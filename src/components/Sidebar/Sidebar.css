@@ -154,3 +154,9 @@
 .sidebar-footer li {
   height: 6vh;
 }
+
+@media screen and (max-width: 480px) {
+  .sidebar {
+    display: none;
+  }  
+}
