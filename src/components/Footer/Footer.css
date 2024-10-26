@@ -63,11 +63,15 @@
 }
 
 @media screen and (max-width: 480px) {
- .footer ul {
+.footer {
+  display: none;
+}
+
+ /* .footer ul {
   display: flex;
   align-items: center;
   flex-direction: row;
   padding: 2vh;
   gap: 5vh;
- }
+ } */
 }
