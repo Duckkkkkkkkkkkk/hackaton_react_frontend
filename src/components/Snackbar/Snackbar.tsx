@@ -13,6 +13,7 @@ export type SnackbarType = 'successAdd' |
                     'differentPassword' | 
                     'successChangePassword' | 
                     'successChange' | 
+                    'successDelete' |
                     'errorSendingData';
 
 interface SnackbarProps {
@@ -53,6 +54,10 @@ const snackbarContent: Record<SnackbarType, { icon: string; message: string }> =
   successChange: {
     icon: successIcon,
     message: 'Данные успешно сохранены!',
+  },
+  successDelete: {
+    icon: successIcon,
+    message: 'Данные успешно удалены!',
   },
   errorSendingData: {
     icon: failureIcon,

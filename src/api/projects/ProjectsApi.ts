@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://cardfile.geryon.space/api";
+const API_URL = "https://persiky.ru";
 
 export interface Projects {
   id?: number;
@@ -121,7 +121,8 @@ export const updateProject = async (
     start_date,
     end_date,
     comment,
-  }: Partial<Projects>
+    users, // Добавлено поле users
+  }: Partial<Projects> & { users?: User[] } // Указан тип для users
 ) => {
   try {
     const dataToUpdate = {
@@ -135,17 +136,22 @@ export const updateProject = async (
       start_date,
       end_date,
       comment,
+      users, // Добавлено поле users в данные для обновления
     };
+
     console.log(`Обновление проекта с ID ${id}`);
     console.log("Данные для обновления:", dataToUpdate);
+
     const response = await api.patch(`/project/${id}`, dataToUpdate);
     console.log("Ответ от сервера:", response.data);
+
     return response.data;
   } catch (error) {
     console.error("Ошибка при обновлении проекта:", error);
     throw error;
   }
 };
+
 
 export const deleteProject = async (id: number): Promise<void> => {
   try {

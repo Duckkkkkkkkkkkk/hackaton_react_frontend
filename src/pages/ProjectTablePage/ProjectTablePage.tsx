@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { fetchProjects, updateProject, Projects, User } from "../../api/projects/ProjectsApi";
+import { fetchProjects, updateProject, Projects, User, createProject, deleteProject} from "../../api/projects/ProjectsApi";
 import FieldSelector from "../../components/FieldSelector/FieldSelector";
 import FormForProjects from "../../components/UniversalForm/FormForProjects";
 import Pagination from "../../components/Pagination/Pagination";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 import Snackbar, { SnackbarType } from "../../components/Snackbar/Snackbar";
-import StatusManager from "../..//components/StatusManager/StatusManager";
+import StatusManager from "../../components/StatusManager/StatusManager";
 
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { RiseLoader } from "react-spinners";
@@ -104,6 +104,7 @@ const ProjectViewPage: React.FC = () => {
     ProjectFields.map((field) => field.name)
   );
   const [selectedProject, setSelectedProject] = useState<Projects | null>(null);
+  const [selectedProjects, setSelectedProjects] = useState<number[]>([]);
   const [snackbar, setSnackbar] = useState<{
     type: SnackbarType;
     open: boolean;
@@ -181,6 +182,26 @@ const ProjectViewPage: React.FC = () => {
     setInitialProjectData(project);
   };
 
+  const handleCheckboxChange = (projectId: number) => {
+    setSelectedProjects((prevSelected) =>
+      prevSelected.includes(projectId)
+        ? prevSelected.filter((id) => id !== projectId)
+        : [...prevSelected, projectId]
+    );
+  };
+  
+  const handleDeleteSelected = async () => {
+    try {
+      await Promise.all(selectedProjects.map(id => deleteProject(id)));
+      // setProjects(projects.filter(project => !selectedProjects.includes(project.id)));
+      setSelectedProjects([]);
+      setSnackbar({ type: 'successChange', open: true });
+    } catch (error) {
+      console.error('Ошибка при удалении проектов:', error);
+      setSnackbar({ type: 'successDelete', open: true });
+    }
+  };
+
   const handleCloseForm = () => {
     setSelectedProject(null);
     setInitialProjectData(null);
@@ -191,36 +212,13 @@ const ProjectViewPage: React.FC = () => {
     setCurrentPage(1);
   };
 
-  // const handleFormSubmit = async (updatedData: Partial<Project>) => {
-  //   if (selectedProject && selectedProject.id) {
-  //     try {
-  //       if (updatedData.users && Array.isArray(updatedData.users)) {
-  //         updatedData.users = updatedData.users.map((user) =>
-  //           typeof user === "object" && "id" in user ? user.id : user
-  //         );
-  //       }
-  //       await updateProject(
-  //         selectedProject.id,
-  //         updatedData as Partial<Project> & { users?: number[] }
-  //       );
-  //       const updatedProjects = projects.map((project) =>
-  //         project.id === selectedProject.id
-  //           ? { ...project, ...updatedData }
-  //           : project
-  //       );
-  //       setProjects(updatedProjects);
-  //       setSnackbar({ type: "successChange", open: true });
-  //       handleCloseForm();
-  //     } catch (error) {
-  //       console.error("Ошибка при обновлении проекта:", error);
-  //       setSnackbar({ type: "errorSendingData", open: true });
-  //     }
-  //   }
-  // };
-
   const handleFormSubmit = async (updatedData: Partial<Projects>) => {
     if (selectedProject && selectedProject.id) {
       try {
+        const dataToUpdate = {
+          ...updatedData,
+          users: updatedData.users?.map((user: User) => user.id),
+        };
         await updateProject(selectedProject.id, updatedData);
         const updatedProjects = projects.map((project) =>
           project.id === selectedProject.id ? { ...project, ...updatedData } : project
@@ -256,23 +254,22 @@ const ProjectViewPage: React.FC = () => {
         return typeof value === 'string'
           ? new Date(value).toLocaleDateString()
           : '';
-      case 'users':
-        if (Array.isArray(value)) {
-          return value
-          .map((user: { lastName?: string }) => user.lastName || '')
-          .filter((lastName) => lastName)
-          .join(', ');
-      
-        }
-        return '';
+          case "users":
+            if (Array.isArray(value)) {
+              return value
+                .map((user: { firstName?: string; lastName?: string }) => 
+                  `${user.lastName || ""} ${user.firstName || ""}`
+                )
+                .filter((name) => name.trim() !== "")
+                .join(", ");
+            }
+            return "";
       case 'comment':
         return value || '';
       default:
         return value?.toString() || '';
     }
   };
-
-  
 
   const breadcrumbs = selectedProject && selectedProject.title
   ? [
@@ -372,6 +369,19 @@ const ProjectViewPage: React.FC = () => {
               <table className="table">
                 <thead>
                   <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onChange={() => {
+                          if (selectedProjects.length === projects.length) {
+                            setSelectedProjects([]);
+                          } else {
+                            // setSelectedProjects(projects.map((project) => project.id));
+                          }
+                        }}
+                        checked={selectedProjects.length === projects.length}
+                      />
+                    </th>
                     {ProjectFields.map(
                       (field) =>
                         visibleFields.includes(field.name) && (
@@ -410,6 +420,13 @@ const ProjectViewPage: React.FC = () => {
                 <tbody>
                   {currentItems.map((project) => (
                     <tr key={project.id} onClick={() => handleRowClick(project)} style={{ cursor: 'pointer' }}>
+                              {/* <td>
+          <input
+            type="checkbox"
+            checked={selectedProjects.includes(project.id)}
+            onChange={() => handleCheckboxChange(project.id)}
+          />
+        </td> */}
                       {ProjectFields.map((field) =>
                         visibleFields.includes(field.name) ? (
                           <td key={`${project.id}_${field.name}`}>
@@ -417,6 +434,11 @@ const ProjectViewPage: React.FC = () => {
                           </td>
                         ) : null
                       )}
+                              <td>
+          <button onClick={() => handleRowClick(project)}>
+            <i className="edit-icon">✏️</i>
+          </button>
+        </td>
                     </tr>
                   ))}
                 </tbody>
