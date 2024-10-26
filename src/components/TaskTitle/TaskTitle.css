@@ -55,7 +55,7 @@
     height: 25px;
     cursor: pointer;
     z-index: 1;
-    transition: filter 0.3s; /* Плавный переход */
+    transition: filter 0.3s;
 }
 
 .task-icon:hover {
