@@ -8,6 +8,8 @@ import { LayoutProvider } from "./components/Context/LayoutContext";
 import LoginPage from "./pages/Login/LoginPage";
 import ProjectTablePage from "./pages/ProjectTablePage/ProjectTablePage";
 import TaskPage from "./pages/TasksPage/TasksPage";
+import MainAdminPanel from "./pages/MainAdminPanel/MainAdminPanel";
+import Profile from "./pages/Profile/Profile";
 
 const App: React.FC = () => {
   return (
@@ -34,7 +36,8 @@ const MainLayout: React.FC = () => {
           <Route path="/" element={<LoginPage />} />
           <Route path="/projects" element={<ProjectTablePage />} />
           <Route path="/tasks" element={<TaskPage />} />
-          
+          <Route path="/main-admin-panel" element={<MainAdminPanel />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </>
