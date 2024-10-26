@@ -241,6 +241,16 @@ td {
     align-items: flex-start;
 }
 
+.project-add-button {
+    position: absolute;
+    top: 27.2vh;
+    right: 34vw;
+    padding: 1.5vh 1vw;
+    background-color: #F0E5FF;
+    color: #656468;
+    border-radius: 1.5vh;
+}
+
 .status-content {
     border-radius: 12px;
     font-size: 0.8vw;
