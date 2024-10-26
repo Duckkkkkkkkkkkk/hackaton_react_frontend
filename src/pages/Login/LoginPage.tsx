@@ -63,7 +63,8 @@ const LoginPage: React.FC = () => {
   const roleRedirect = (role: string) => {
     switch (role) {
       case "ADMIN":
-      case "CUSTOMER":
+        return "/main-admin-panel";
+      case "SPECIALIST":
       case "GUEST":
         return "/projects";
       default:

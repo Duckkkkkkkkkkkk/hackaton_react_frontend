@@ -129,20 +129,20 @@
 }
 
 .login-btn:hover {
-  background-color: #7927E0;
+  background-color: #9246F3;
 }
 
 .login-btn:active {
-  background-color: #7927E0;
+  background-color: #AD6CFE;
 }
 
 .forgot-password a:hover {
-  color: #7927E0;
+  color: #9246F3;
   text-decoration: underline;
 }
 
 .forgot-password a:active {
-  color: #7927E0;
+  color: #AD6CFE;
   text-decoration: underline;
 }
 
