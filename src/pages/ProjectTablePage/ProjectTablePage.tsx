@@ -6,6 +6,7 @@ import FormForProjects from "../../components/UniversalForm/FormForProjects";
 import Pagination from "../../components/Pagination/Pagination";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 import Snackbar, { SnackbarType } from "../../components/Snackbar/Snackbar";
+import StatusManager from "../..//components/StatusManager/StatusManager"; // путь к компоненту
 
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { RiseLoader } from "react-spinners";
@@ -79,6 +80,7 @@ const statusColors: { [key: string]: string } = {
   CHECK: "#ebdc8b",
   CANCEL: "#EB9C8B",
 };
+
 
 const ProjectViewPage: React.FC = () => {
   useLogout();
@@ -269,6 +271,8 @@ const ProjectViewPage: React.FC = () => {
         return value?.toString() || '';
     }
   };
+
+  
 
   const breadcrumbs = selectedProject && selectedProject.title
   ? [

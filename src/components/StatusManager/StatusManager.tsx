@@ -14,7 +14,7 @@ const generalOptions: Option[] = [
   { value: "COMPLETED", label: "Завершен", color: "#8beba0" },
   { value: "CHECK", label: "Проверка", color: "#ebdc8b" },
   { value: "INPROGRESS", label: "В процессе", color: "#de8beb" },
-  { value: "NOTSTARTED", label: "Не начато", color: "#8bc8eb" },
+  { value: "BACKLOG", label: "Бэклог", color: "#8bc8eb" },
   { value: "CANCEL", label: "Отмена", color: "#EB9C8B" },
 ];
 const internOptions: Option[] = [
@@ -27,7 +27,7 @@ const taskOptions: Option[] = [
   { value: "COMPLETED", label: "Завершен", color: "#8beba0" },
   { value: "VERIFICATION", label: "Проверка", color: "#ebdc8b" },
   { value: "INPROGRESS", label: "В процессе", color: "#de8beb" },
-  { value: "NOTSTARTED", label: "Не начато", color: "#8bc8eb" },
+  { value: "BACKLOG", label: "Бэклог", color: "#8bc8eb" },
   { value: "BLOCKED", label: "Отмена", color: "#EB9C8B" },
 ];
 const specialistOptions: Option[] = [
