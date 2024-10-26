@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LoginResponse } from "./interfaces/dto.auth";
 
-const API_URL = "https://cardfile.geryon.space/api";
+const API_URL = "https://persiky.ru";
 
 export const logIn = async (
   login: string,

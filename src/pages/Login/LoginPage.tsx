@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Login/Login.css";
+import Snackbar, { SnackbarType } from "../../components/Snackbar/Snackbar"
 import { logIn } from "../../api/auth/LoginApi";
+import { register } from "../../api/auth/registerApi";
 
-// import cowImage from "./../images/img/cow_shadow.png";
 import open_eye_icon from "../../images/icons/icon_open_eye.svg";
 import close_eye_icon from "../../images/icons/icon_close_eye.svg";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -16,8 +17,11 @@ const LoginPage: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isRegister, setIsRegister] = useState(false);
-  const [name, setName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [snackbarType, setSnackbarType] = useState<SnackbarType | null>(null);
 
   const token = localStorage.getItem("access_token");
   const role = localStorage.getItem("user_role");
@@ -31,41 +35,65 @@ const LoginPage: React.FC = () => {
         return <Navigate to={"/project_view"} />;
     }
   }
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
   const handleLoginSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    await attemptLogin();
+  };
+
+  const attemptLogin = async () => {
     try {
       const response = await logIn(login, password);
       console.log("Авторизация успешна", response);
+
       localStorage.setItem("access_token", response.access_token);
       localStorage.setItem("user_role", response.role);
+      setSnackbarType("successAdd");
 
-      switch (response.role) {
-        case "ADMIN":
-          window.location.href = "/";
-          break;
-        case "CUSTOMER":
-          window.location.href = "/"; // TODO поставила временное отображение страницы для роли тест
-          break;
-        case "SPECIALIST":
-          window.location.href = "/"; // TODO поставила временное отображение страницы для роли тест
-          break;
-        default:
-          window.location.href = "/"; // если роль неизвестна
-      }
+      window.location.href = roleRedirect(response.role);
     } catch (error) {
-      setError("Ошибка авторизации, проверьте логин и пароль");
+      setSnackbarType("failureLogin");
     }
   };
 
-  const handleRegisterSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Registration logic here
-    console.log("Регистрация успешна:", { name, login, password, confirmPassword });
+  const roleRedirect = (role: string) => {
+    switch (role) {
+      case "ADMIN":
+      case "CUSTOMER":
+      case "GUEST":
+        return "/projects";
+      default:
+        return "/";
+    }
   };
+
+  // useEffect(() => {
+  //   if (!isRegister) {
+  //     attemptLogin();
+  //   }
+  // }, [isRegister]);
+
+  const handleRegisterSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await register({ login, firstName, lastName, middleName });
+      console.log("Registration successful:", response);
+      setIsRegister(false);
+      setSnackbarType("successRegister");
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.response?.message;
+      if (errorMessage === "USER ALREADY EXISTS") {
+        setSnackbarType("failureEmail");
+      } else {
+        setSnackbarType("errorSendingData");
+      }
+    }
+  };
+  
 
   return (
     <div className="login-container">
@@ -73,66 +101,90 @@ const LoginPage: React.FC = () => {
         <h2>{isRegister ? "Регистрация" : "Вход в аккаунт"}</h2>
         {error && <div className="login-error-message">{error}</div>}
         <form onSubmit={isRegister ? handleRegisterSubmit : handleLoginSubmit}>
-          {isRegister && (
-            <div className="form-group">
-              <input
-                type="text"
-                className="login-form-control"
-                placeholder="ФИО"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-          )}
-          <div className="form-group">
-            <input
-              type="text"
-              className="login-form-control"
-              placeholder="Логин"
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group password-group">
-            <input
-              type={passwordVisible ? "text" : "password"}
-              className="login-form-control"
-              placeholder="Пароль"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            {!isRegister && (
-              <img
-                src={passwordVisible ? close_eye_icon : open_eye_icon}
-                alt="Toggle password visibility"
-                className="toggle-pass-icon"
-                onClick={togglePasswordVisibility}
-              />
-            )}
-          </div>
-          {isRegister && (
-            <div className="form-group">
-              <input
-                type={passwordVisible ? "text" : "password"}
-                className="login-form-control"
-                placeholder="Повторите пароль"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
+          {isRegister ? (
+            <>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="login-form-control"
+                  placeholder="Фамилия"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  maxLength={25}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="login-form-control"
+                  placeholder="Имя"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  maxLength={25}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="login-form-control"
+                  placeholder="Отчество"
+                  value={middleName}
+                  onChange={(e) => setMiddleName(e.target.value)}
+                  maxLength={25}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="email"
+                  className="login-form-control"
+                  placeholder="Логин (Email)"
+                  value={login}
+                  onChange={(e) => setLogin(e.target.value)}
+                  maxLength={25}
+                  required
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="login-form-control"
+                  placeholder="Логин"
+                  value={login}
+                  onChange={(e) => setLogin(e.target.value)}
+                  maxLength={25}
+                  required
+                />
+              </div>
+              <div className="form-group password-group">
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  className="login-form-control"
+                  placeholder="Пароль"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  maxLength={20}
+                  required
+                />
+                <img
+                  src={passwordVisible ? close_eye_icon : open_eye_icon}
+                  alt="Toggle password visibility"
+                  className="toggle-pass-icon"
+                  onClick={togglePasswordVisibility}
+                />
+              </div>
+            </>
           )}
           <div className="forgot-password">
-            <a href="#">
-              {isRegister ? "" : "Забыли пароль?"}             
-            </a>
+            {!isRegister && <a href="#">Забыли пароль?</a>}
           </div>
-          <div className="login-btn">
+          <button className="login-btn" type="submit">
             {isRegister ? "Зарегистрироваться" : "Войти"}
-          </div>
+          </button>
           <div className="forgot-password">
             <a href="#" onClick={() => setIsRegister(!isRegister)}>
               {isRegister ? "Авторизация" : "Регистрация"}
@@ -140,8 +192,15 @@ const LoginPage: React.FC = () => {
           </div>
         </form>
       </div>
+      {snackbarType && (
+        <Snackbar
+          type={snackbarType}
+          duration={3000}
+          onClose={() => setSnackbarType(null)}
+        />
+      )}
       <div className="login-image">
-        {/* здесь будет картинка наверное */}
+        {/* Optional image placeholder */}
       </div>
     </div>
   );
