@@ -95,11 +95,16 @@ button {
   padding: 1vh;
   border-radius: 1vh;
   color: white;
+  transition: 0.3s;
 }
 
 .del_btn_img{
   height: 2vh;
   filter: brightness(0) invert(1);
+}
+
+.del_btn:hover {
+  background: #ff4f43;
 }
 
 .edit_btn {
@@ -110,4 +115,9 @@ button {
   padding: 1vh;
   border-radius: 1vh;
   color: white;
+  transition: 0.3s;
+}
+
+.edit_btn:hover{
+  background: #a357ff;
 }
