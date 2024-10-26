@@ -12,19 +12,20 @@
   
   /* Цвет фона в зависимости от статуса */
   .task-card.backlog {
-    background-color: #8bc8eb;
+    /* background-color: rgb(139, 200, 235); */
+    background-color: rgba(139, 200, 235, 0.5)
 }
   
   .task-card.inProgress {
-    background-color: #de8beb;
+    background-color: rgba(222, 139, 235, 0.5);
 }
   
   .task-card.review {
-    background-color: #ffe764;
+    background-color: rgba(235, 220, 139, 0.5);
 }
   
   .task-card.done {
-    background-color: #63ff85;
+    background-color: rgba(139, 235, 160, 0.5);
 }
   
   .task-card-content {
@@ -59,5 +60,10 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+    transition: filter 0.3s;
+  }
+
+  .task-card-delete-icon:hover {
+    filter: brightness(0) saturate(100%);
   }
   
