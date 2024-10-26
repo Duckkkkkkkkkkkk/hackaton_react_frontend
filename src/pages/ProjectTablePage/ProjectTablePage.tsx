@@ -34,7 +34,7 @@ const ProjectFields = [
     options: [
       { value: "COMPLETED", label: "Завершен" },
       { value: "INPROGRESS", label: "В процессе" },
-      { value: "NOTSTARTED", label: "Не начато" },
+      { value: "BACKLOG", label: "Бэклог" },
       { value: "CHECK", label: "Проверка" },
       { value: "CANCEL", label: "Отмена" },
     ],
