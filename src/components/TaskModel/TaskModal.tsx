@@ -15,8 +15,8 @@ type TaskModalProps = {
 
 const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, title, user, project, status, description }) => {
   return (
-    <div className={`modal-overlay ${isOpen ? 'modal-open' : ''}`} onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className={`tsk-modal-overlay ${isOpen ? 'tsk-modal-open' : ''}`} onClick={onClose}>
+      <div className="tsk-modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>{title}</h2>
         <p>{description}</p>
         <label>
@@ -31,17 +31,17 @@ const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, title, user, pro
           <span>Статус:</span>
           <input type="text" value={status} readOnly />
         </label>
-        <label className='comlabel'>
-          <a className='commentary'>Комментарий:</a>
+        <label className='tsk-comlabel'>
+          <a className='tsk-commentary'>Комментарий:</a>
           <textarea placeholder="Введите комментарий"></textarea>
         </label>
-        <div className='buttons'>
-        <button className="del_btn" /*onClick={onClose}*/>
-          <img src={deleteIcon} alt="Delete task" className='del_btn_img'/>
+        <div className='tsk-buttons'>
+        <button className="tsk-del_btn" /*onClick={onClose}*/>
+          <img src={deleteIcon} alt="Delete task" className='tsk-del_btn_img'/>
           Удалить
         </button>
-        <button className='edit_btn' /*onClick={}*/>
-          <img src={checkIcon} alt="Save task" className='del_btn_img'/>
+        <button className='tsk-edit_btn' /*onClick={}*/>
+          <img src={checkIcon} alt="Save task" className='tsk-del_btn_img'/>
           Сохранить
         </button>
         </div>

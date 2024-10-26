@@ -1,4 +1,4 @@
-.modal-overlay {
+.tsk-modal-overlay {
   position: fixed;
   top:12vh;
   right: 0;
@@ -15,12 +15,12 @@
   z-index: 100; 
 }
 
-.modal-open {
+.tsk-modal-open {
   opacity: 1;
   pointer-events: auto;
 }
 
-.modal-content {
+.tsk-modal-content {
   display: flex;
   flex-direction: column;
   gap: 1.5vh;
@@ -37,16 +37,16 @@
   z-index: 100;
 }
 
-.modal-open .modal-content {
+.tsk-modal-open .tsk-modal-content {
   transform: translateX(0); /* Плавный показ окна */
 }
 
-.comlabel{
+.tsk-comlabel{
   display: flex;
   flex-direction: column;
 }
 
-.commentary {
+.tsk-commentary {
   font-weight: 500;
 }
 
@@ -76,7 +76,7 @@ label input {
   all: unset;
 }
 
-.buttons {
+.tsk-buttons {
   display: flex;
   gap: 5vh;
   padding: 1vh;
@@ -87,7 +87,7 @@ button {
   font-size: large;
 }
 
-.del_btn {
+.tsk-del_btn {
   display: flex;
   align-items: center;
   gap: 1vh;
@@ -98,16 +98,16 @@ button {
   transition: 0.3s;
 }
 
-.del_btn_img{
+.tsk-del_btn_img{
   height: 2vh;
   filter: brightness(0) invert(1);
 }
 
-.del_btn:hover {
+.tsk-del_btn:hover {
   background: #ff4f43;
 }
 
-.edit_btn {
+.tsk-edit_btn {
   display: flex;
   align-items: center;
   gap: 1vh;
@@ -118,6 +118,6 @@ button {
   transition: 0.3s;
 }
 
-.edit_btn:hover{
+.tsk-edit_btn:hover{
   background: #a357ff;
 }
