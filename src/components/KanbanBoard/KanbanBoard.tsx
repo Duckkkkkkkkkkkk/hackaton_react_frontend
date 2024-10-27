@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './KanbanBoard.css';
 import TaskCard from '../TaskCard/TaskCard';
 import TaskModal from '../TaskModel/TaskModal';
+import { updateTask } from '../../api/tasks/TaskApi';
 
 
 interface Task {
   id: number;
   title: string;
+  start_date: Date;
   user: string;
    project: {
      title: string;
@@ -21,7 +23,7 @@ interface Task {
     lastName: string;
    };
    project_id: number;
-
+   comment: string;
 }
 
 type KanbanBoardProps = {
@@ -29,6 +31,10 @@ type KanbanBoardProps = {
 };
 
 const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
+  // const [taskList, setTaskList] = useState<Task[]>(tasks);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+
   const [columns, setColumns] = useState<{ [key: string]: Task[] }>({
     backlog: tasks.filter(task => task.status === 'NOTSTARTED'),
     inProgress: tasks.filter(task => task.status === 'INPROGRESS'),
@@ -36,18 +42,15 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
     done: tasks.filter(task => task.status === 'COMPLETED'),
   });
 
-  useEffect(() => {
-    const organizedTasks = {
-      backlog: tasks.filter((task) => task.status === 'NOTSTARTED'),
-      inProgress: tasks.filter((task) => task.status === 'INPROGRESS'),
-      review: tasks.filter((task) => task.status === 'VERIFICATION'),
-      done: tasks.filter((task) => task.status === 'COMPLETED'),
-    };
-    setColumns(organizedTasks);
-  }, [tasks]);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  // useEffect(() => {
+  //   const organizedTasks = {
+  //     backlog: tasks.filter((task) => task.status === 'NOTSTARTED'),
+  //     inProgress: tasks.filter((task) => task.status === 'INPROGRESS'),
+  //     review: tasks.filter((task) => task.status === 'VERIFICATION'),
+  //     done: tasks.filter((task) => task.status === 'COMPLETED'),
+  //   };
+  //   setColumns(organizedTasks);
+  // }, [tasks]);
 
   const handleTaskClick = (task: Task) => {
     setSelectedTask(task);
@@ -64,14 +67,46 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
     e.dataTransfer.setData('from', from);
   };
 
-  const handleOnDrop = (e: React.DragEvent, to: string) => {
-    const taskData = e.dataTransfer.getData('task');
-    const from = e.dataTransfer.getData('from');
-    const task = JSON.parse(taskData);
+const handleOnDrop = async (e: React.DragEvent, to: string) => {
+  const taskData = e.dataTransfer.getData('task');
+  const from = e.dataTransfer.getData('from');
+  const task = JSON.parse(taskData);
 
+  // Обновляем статус задачи в соответствии с новым столбиком
+  const newStatusMap: { [key: string]: string } = {
+    backlog: 'NOTSTARTED',
+    inProgress: 'INPROGRESS',
+    review: 'VERIFICATION',
+    done: 'COMPLETED',
+  };
+
+  const updatedTask = {
+    ...task,
+    status: newStatusMap[to], // Обновляем статус
+  };
+
+  // Обновляем состояние столбцов
+  setColumns((prev) => {
+    const fromTasks = prev[from].filter((t) => t.id !== task.id); // Удаляем задачу из предыдущего столбца
+    const toTasks = [...prev[to], updatedTask]; // Добавляем обновленную задачу в новый столбец
+
+    return {
+      ...prev,
+      [from]: fromTasks,
+      [to]: toTasks,
+    };
+  });
+
+  // Обновляем задачу на сервере
+  try {
+    await updateTask(updatedTask.id, updatedTask.executor.id, updatedTask);
+    console.log(`Задача ${updatedTask.title} обновлена на сервере`);
+  } catch (error) {
+    console.error("Ошибка при обновлении задачи на сервере:", error);
+    // Восстанавливаем задачу в предыдущий столбик в случае ошибки
     setColumns((prev) => {
-      const fromTasks = prev[from].filter((t) => t.title !== task.title);
-      const toTasks = [...prev[to], task];
+      const fromTasks = [...prev[from], task]; // Возвращаем исходную задачу
+      const toTasks = prev[to].filter((t) => t.id !== task.id); // Удаляем задачу из нового столбца
 
       return {
         ...prev,
@@ -79,7 +114,8 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
         [to]: toTasks,
       };
     });
-  };
+  }
+};
 
   // {tasks.map((task) => {
   //   // Логируем каждую задачу
@@ -112,11 +148,13 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
         id={selectedTask.id}
           isOpen={isModalOpen}
           onClose={handleModalClose}
+          start_date={selectedTask.start_date}
           title={selectedTask.title}
           executor={selectedTask.executor}
           project={selectedTask.project.title}
           status={selectedTask.status}
           description={selectedTask.description}
+          comment={selectedTask.comment}
           project_id={selectedTask.project_id}
         />
       )}
