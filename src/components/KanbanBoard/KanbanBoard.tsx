@@ -42,15 +42,15 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
     done: tasks.filter(task => task.status === 'COMPLETED'),
   });
 
-  // useEffect(() => {
-  //   const organizedTasks = {
-  //     backlog: tasks.filter((task) => task.status === 'NOTSTARTED'),
-  //     inProgress: tasks.filter((task) => task.status === 'INPROGRESS'),
-  //     review: tasks.filter((task) => task.status === 'VERIFICATION'),
-  //     done: tasks.filter((task) => task.status === 'COMPLETED'),
-  //   };
-  //   setColumns(organizedTasks);
-  // }, [tasks]);
+  useEffect(() => {
+    const organizedTasks = {
+      backlog: tasks.filter((task) => task.status === 'NOTSTARTED'),
+      inProgress: tasks.filter((task) => task.status === 'INPROGRESS'),
+      review: tasks.filter((task) => task.status === 'VERIFICATION'),
+      done: tasks.filter((task) => task.status === 'COMPLETED'),
+    };
+    setColumns(organizedTasks);
+  }, [tasks]);
 
   const handleTaskClick = (task: Task) => {
     setSelectedTask(task);
@@ -82,10 +82,9 @@ const handleOnDrop = async (e: React.DragEvent, to: string) => {
 
   const updatedTask = {
     ...task,
-    status: newStatusMap[to], // Обновляем статус
+    status: newStatusMap[to],
   };
 
-  // Обновляем состояние столбцов
   setColumns((prev) => {
     const fromTasks = prev[from].filter((t) => t.id !== task.id); // Удаляем задачу из предыдущего столбца
     const toTasks = [...prev[to], updatedTask]; // Добавляем обновленную задачу в новый столбец
@@ -97,16 +96,14 @@ const handleOnDrop = async (e: React.DragEvent, to: string) => {
     };
   });
 
-  // Обновляем задачу на сервере
   try {
     await updateTask(updatedTask.id, updatedTask.executor.id, updatedTask);
     console.log(`Задача ${updatedTask.title} обновлена на сервере`);
   } catch (error) {
     console.error("Ошибка при обновлении задачи на сервере:", error);
-    // Восстанавливаем задачу в предыдущий столбик в случае ошибки
     setColumns((prev) => {
-      const fromTasks = [...prev[from], task]; // Возвращаем исходную задачу
-      const toTasks = prev[to].filter((t) => t.id !== task.id); // Удаляем задачу из нового столбца
+      const fromTasks = [...prev[from], task];
+      const toTasks = prev[to].filter((t) => t.id !== task.id);
 
       return {
         ...prev,

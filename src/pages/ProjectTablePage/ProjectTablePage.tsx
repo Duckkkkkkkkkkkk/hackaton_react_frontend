@@ -352,10 +352,12 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
   return (
     <div className="interns-table-page">
       <BreadCrumbs breadcrumbs={breadcrumbs} />
+      {userRole === "ADMIN" && (
       <button className="project-add-button" onClick={handleAddProject} style={isCreatingNewProject ? { position: 'absolute', top: '77.5vh' } : {}}
       >
         Добавить
       </button>
+      )}
       {isModalOpen && (
       <div className="proj-modal-background" >
         <div className="proj-modal-content">
@@ -443,11 +445,13 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
               </div>
             </div>
           </div>
+          {userRole === 'ADMIN' && (
           <div className="all_delete">
             <button onClick={handleBulkDelete} disabled={selectedProjectIds.length === 0} className="deleteButton">
               <img src={activeDeleteIcon} alt="Удалить" />
             </button>
           </div>
+          )}
           <div className="project-table">
             {!projects.length ? (
               <div
@@ -464,7 +468,6 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
               <table className="table">
                 <thead>
                   <tr>
-                    <th></th>
                     <th></th>
                     <th></th>  
                     {ProjectFields.map(
@@ -505,6 +508,7 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
                 <tbody>
                   {currentItems.map((project) => (
                     <tr key={project.id} >
+                       {userRole === 'ADMIN' && (
                       <th className="action">
                         <input
                           type="checkbox"
@@ -512,6 +516,7 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
                           onChange={() => handleSelectProject(project.id!)}
                         />                      
                       </th>
+                       )}
                       <td>
                         <img
                           src={task_icon}
@@ -522,14 +527,17 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
                         />
                       </td>
                       <td>
-                        <img
-                          src={icon_edit}
-                          alt="Edit"
-                          className="edit_icon"
-                          onClick={() => handleRowEdit(project)}
-                          style={{ cursor: "pointer" }}
-                        />
+                        {userRole === 'ADMIN' && (
+                          <img
+                            src={icon_edit}
+                            alt="Edit"
+                            className="edit_icon"
+                            onClick={() => handleRowEdit(project)}
+                            style={{ cursor: "pointer" }}
+                          />
+                        )}
                       </td>
+
                       {ProjectFields.map((field) =>
                         visibleFields.includes(field.name) ? (
                           <td key={`${project.id}_${field.name}`}>

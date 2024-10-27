@@ -8,6 +8,7 @@ import { exportTasks } from '../../api/tasks/TaskApi';
 
 import export_button from "../../images/icons/icon_export_tasks.svg"
 import filter_button from "../../images/icons/icon_filter_task.svg"
+import search_icon from "../../images/icons/icon_search.svg"
 
 interface Project {
   title: string;
@@ -28,6 +29,7 @@ interface Task {
 const TaskPage: React.FC = () => {
   const location = useLocation();
   const { tasks, projectId } = location.state || { tasks: [], projectId: null };
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTaskStatus, setNewTaskStatus] = useState<string>('NOTSTARTED'); // Статус новой задачи
@@ -70,6 +72,11 @@ const TaskPage: React.FC = () => {
     }
   };
 
+  const handleSearch = () => {
+    // Fetch tasks based on the search term
+    // You might want to trigger a fetchTasksByProjectId here
+  };
+
   const breadcrumbs = [
     { name: "Проекты", path: "/projects" },
     { name: "Проект_1", path: "/" }, // заглушка
@@ -97,6 +104,19 @@ const TaskPage: React.FC = () => {
           // onClick={handleExportClick}
           style={{ cursor: "pointer" }}
         />  
+              <div className="search-container-tsk">
+                <input
+                  type="text"
+                  placeholder="Найти"
+                  className="search-input"
+                />
+                <img
+                  src={search_icon}
+                  alt="Искать"
+                  className="search-icon"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
       </div>
       <div className="task-titles">
         <TaskTitle type="backlog" onAddTask={handleAddTask} />
