@@ -13,8 +13,11 @@ const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
 
-  if (!showHeader) {
-    return null;
+  // Проверка, находитесь ли вы на странице входа
+  const isLoginPage = location.pathname === "/"; // Измените путь на ваш путь входа
+
+  if (!showHeader || isLoginPage) {
+    return null; // Скрыть Header на странице входа
   }
 
   const handleBurgerClick = () => {

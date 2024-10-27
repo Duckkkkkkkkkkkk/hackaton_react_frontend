@@ -14,5 +14,11 @@
 }
 
 .save-button {
-    margin-left: 32.5vw;
+    margin-left: 34.5vw;
+}
+
+@media screen and (max-width: 480px) {
+    .save-button {
+        margin-left: 30%;
+    }
 }

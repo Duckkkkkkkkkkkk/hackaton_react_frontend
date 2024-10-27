@@ -156,6 +156,13 @@
   outline: none;
 }
 
+.wb_login {
+  position: absolute; 
+  top: 2vh; 
+  left: 50%; 
+  transform: translateX(-50%); 
+}
+
 @media screen and (max-width: 480px) {
   .login-form {
     width: 90%;
