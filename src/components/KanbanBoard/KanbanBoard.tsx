@@ -1,31 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './KanbanBoard.css';
 import TaskCard from '../TaskCard/TaskCard';
 import TaskModal from '../TaskModel/TaskModal';
 
-const KanbanBoard: React.FC = () => {
-  const [tasks, setTasks] = useState<{
-    [key: string]: { title: string; user: string; project: string }[];
-  }>({
-    backlog: [
-      { title: 'Задача 1', user: 'Пользователь 1', project: 'Проект A' },
-      { title: 'Задача 2', user: 'Пользователь 2', project: 'Проект B' },
-    ],
-    inProgress: [
-      { title: 'Задача 3', user: 'Пользователь 3', project: 'Проект C' },
-    ],
-    review: [
-      { title: 'Задача 4', user: 'Пользователь 4', project: 'Проект D' },
-    ],
-    done: [
-      { title: 'Задача 5', user: 'Пользователь 4', project: 'Проект D' },
-    ],
+
+interface Task {
+  id: number;
+  title: string;
+  user: string;
+   project: {
+     title: string;
+   }; 
+   
+  //project: string;
+  status: string;
+  description: string;
+  executor: {
+    id:number;
+    firstName: string;
+    lastName: string;
+   };
+   project_id: number;
+
+}
+
+type KanbanBoardProps = {
+  tasks: Task[];
+};
+
+const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
+  const [columns, setColumns] = useState<{ [key: string]: Task[] }>({
+    backlog: tasks.filter(task => task.status === 'NOTSTARTED'),
+    inProgress: tasks.filter(task => task.status === 'INPROGRESS'),
+    review: tasks.filter(task => task.status === 'VERIFICATION'),
+    done: tasks.filter(task => task.status === 'COMPLETED'),
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<{ title: string; user: string; project: string; description: string; status: string } | null>(null);
+  useEffect(() => {
+    const organizedTasks = {
+      backlog: tasks.filter((task) => task.status === 'NOTSTARTED'),
+      inProgress: tasks.filter((task) => task.status === 'INPROGRESS'),
+      review: tasks.filter((task) => task.status === 'VERIFICATION'),
+      done: tasks.filter((task) => task.status === 'COMPLETED'),
+    };
+    setColumns(organizedTasks);
+  }, [tasks]);
 
-  const handleTaskClick = (task: { title: string; user: string; project: string; description: string; status: string }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+
+  const handleTaskClick = (task: Task) => {
     setSelectedTask(task);
     setIsModalOpen(true);
   };
@@ -35,17 +59,9 @@ const KanbanBoard: React.FC = () => {
     setSelectedTask(null);
   };
 
-  const handleOnDragStart = (
-    e: React.DragEvent,
-    task: { title: string; user: string; project: string },
-    from: string
-  ) => {
+  const handleOnDragStart = (e: React.DragEvent, task: Task, from: string) => {
     e.dataTransfer.setData('task', JSON.stringify(task));
     e.dataTransfer.setData('from', from);
-  };
-
-  const handleOnDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
   };
 
   const handleOnDrop = (e: React.DragEvent, to: string) => {
@@ -53,7 +69,7 @@ const KanbanBoard: React.FC = () => {
     const from = e.dataTransfer.getData('from');
     const task = JSON.parse(taskData);
 
-    setTasks((prev) => {
+    setColumns((prev) => {
       const fromTasks = prev[from].filter((t) => t.title !== task.title);
       const toTasks = [...prev[to], task];
 
@@ -65,81 +81,45 @@ const KanbanBoard: React.FC = () => {
     });
   };
 
+  // {tasks.map((task) => {
+  //   // Логируем каждую задачу
+  //   console.log("myTask:", task.project); // Логирование задачи
+  // })}
   return (
     <div className="kanban-board">
-      <div className="kanban-column" onDragOver={handleOnDragOver} onDrop={(e) => handleOnDrop(e, 'backlog')}>
-        <div className="task-list">
-          {tasks.backlog.map((task) => (
-            <div key={task.title} draggable onDrag={(e) => handleOnDragStart(e, task, 'backlog')}>
-              <TaskCard
-                title={task.title}
-                user={task.user}
-                project={task.project}
-                status="backlog"
-                onDragStart={(e) => handleOnDragStart(e, task, 'backlog')}
-                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
-              />
-            </div>
-          ))}
+      {Object.entries(columns).map(([column, tasks]) => (
+        <div className="kanban-column" key={column} onDragOver={(e) => e.preventDefault()} onDrop={(e) => handleOnDrop(e, column)}>
+          <div className="task-list">
+            {tasks.map((task) => (
+              
+              <div key={task.title} draggable onDrag={(e) => handleOnDragStart(e, task, column)}>
+                <TaskCard
+                  id={task.id}
+                  title={task.title}
+                  project={task.project.title}
+                  status={task.status}
+                  executor={task.executor}
+                  onDragStart={(e) => handleOnDragStart(e, task, 'backlog')}
+                  onClick={() => handleTaskClick(task)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="kanban-column" onDragOver={handleOnDragOver} onDrop={(e) => handleOnDrop(e, 'inProgress')}>
-        <div className="task-list">
-          {tasks.inProgress.map((task) => (
-            <div key={task.title} draggable onDrag={(e) => handleOnDragStart(e, task, 'inProgress')}>
-              <TaskCard
-                title={task.title}
-                user={task.user}
-                project={task.project}
-                status="inProgress"
-                onDragStart={(e) => handleOnDragStart(e, task, 'inProgress')}
-                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="kanban-column" onDragOver={handleOnDragOver} onDrop={(e) => handleOnDrop(e, 'review')}>
-        <div className="task-list">
-          {tasks.review.map((task) => (
-            <div key={task.title} draggable onDrag={(e) => handleOnDragStart(e, task, 'review')}>
-              <TaskCard
-                title={task.title}
-                user={task.user}
-                project={task.project}
-                status="review"
-                onDragStart={(e) => handleOnDragStart(e, task, 'review')}
-                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="kanban-column" onDragOver={handleOnDragOver} onDrop={(e) => handleOnDrop(e, 'done')}>
-        <div className="task-list">
-          {tasks.done.map((task) => (
-            <div key={task.title} draggable onDrag={(e) => handleOnDragStart(e, task, 'done')}>
-              <TaskCard
-                title={task.title}
-                user={task.user}
-                project={task.project}
-                status="done"
-                onDragStart={(e) => handleOnDragStart(e, task, 'done')}
-                onClick={() => handleTaskClick({ ...task, description: 'Описание задачи', status: 'backlog' })}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-      <TaskModal
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        title={selectedTask?.title || ''}
-        user={selectedTask?.user || ''}
-        project={selectedTask?.project || ''}
-        status={selectedTask?.status || ''}
-        description={selectedTask?.description || ''}
-      />
+      ))}
+      {selectedTask && (
+        <TaskModal
+        id={selectedTask.id}
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          title={selectedTask.title}
+          executor={selectedTask.executor}
+          project={selectedTask.project.title}
+          status={selectedTask.status}
+          description={selectedTask.description}
+          project_id={selectedTask.project_id}
+        />
+      )}
     </div>
   );
 };

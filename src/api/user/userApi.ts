@@ -36,21 +36,11 @@ export interface User {
   projects?: Project[];
 }
 
-export interface Competency {
-  id?: number;
-  text?: string;
-  users?: User[];
-}
-export interface Competencies {
-  id?: number;
-  text?: string;
-}
-
 export interface Task {
   id?: number;
   title?: string;
 }
-const API_URL = "https://cardfile.geryon.space/api";
+const API_URL = "https://persiky.ru";
 
 const getAuthToken = () => {
   return localStorage.getItem("access_token");
@@ -110,50 +100,7 @@ export const fetchProject = async (): Promise<Project[]> => {
   console.log("Все проекты :", users);
   return users;
 };
-export const fetchCompetency = async (): Promise<Competencies[]> => {
-  const response = await api.get<Competencies[]>("/competency/titles");
-  const users = response.data;
-  console.log("Все компетенции :", users);
-  return users;
-};
-export const fetchInterns = async (
-  stage: string,
-  searchText: string,
-  sortField?: string,
-  sortOrder: "asc" | "desc" = "asc"
-): Promise<User[]> => {
-  return fetchUserByStatus(
-    "INTERNSHIP",
-    stage,
-    searchText,
-    sortField,
-    sortOrder
-  );
-};
 
-export const fetchPractice = async (
-  stage: string,
-  searchText: string,
-  sortField?: string,
-  sortOrder: "asc" | "desc" = "asc"
-): Promise<User[]> => {
-  return fetchUserByStatus("PRACTICE", stage, searchText, sortField, sortOrder);
-};
-
-export const fetchSpecialist = async (
-  stage: string,
-  searchText: string,
-  sortField?: string,
-  sortOrder?: "asc" | "desc"
-): Promise<User[]> => {
-  return fetchUserByStatus(
-    "SPECIALIST",
-    stage,
-    searchText,
-    sortField,
-    sortOrder
-  );
-};
 export const createUser = async (userData: User): Promise<User> => {
   try {
     const cleanedUserData: Partial<User> = { ...userData };
@@ -170,55 +117,6 @@ export const createUser = async (userData: User): Promise<User> => {
     return createdUser;
   } catch (error) {
     console.error("Ошибка при создании пользователя:", error);
-    throw error;
-  }
-};
-
-export const createNewCompetency = async (
-  userId: number,
-  competencyText: string
-): Promise<void> => {
-  try {
-    console.log("Создание новой компетенции:", competencyText);
-    const competencyCreateData = {
-      text: competencyText,
-      users: [userId],
-    };
-    await api.post(`/competency`, competencyCreateData);
-  } catch (error) {
-    console.error("Ошибка при создании новой компетенции:", error);
-    throw error;
-  }
-};
-
-export const createCompetencies = async (
-  userId: number,
-  competencies: Competency[]
-): Promise<void> => {
-  try {
-    if (competencies && competencies.length > 0) {
-      const competencyCreatePromises = competencies.map(async (competency) => {
-        if (competency.id) {
-          console.log(
-            `Связывание существующей компетенции (ID: ${competency.id}) с пользователем (ID: ${userId})`
-          );
-          await api.patch(`/competency/${competency.id}`, {
-            users: [userId]
-          });
-        } else {
-          console.log("Создание новой компетенции:", competency.text);
-          const competencyCreateData = {
-            text: competency.text,
-            users: [userId],
-          };
-          await api.post(`/competency`, competencyCreateData);
-        }
-      });
-
-      await Promise.all(competencyCreatePromises);
-    }
-  } catch (error) {
-    console.error("Ошибка при создании компетенций:", error);
     throw error;
   }
 };
@@ -273,14 +171,20 @@ export const deleteUser = async (id: number): Promise<void> => {
   }
 };
 
-// export async function fetchProjectTitles(): Promise<string[]> {
-//   const token = localStorage.getItem("access_token");
+export interface User2 {
+  id: number;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  role: string;
+}
 
-//   const response = await axios.get<Project[]>(`${API_URL}/project/list`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-
-//   return response.data.map((project) => project.title);
-// }
+export async function fetchUsers(): Promise<User[]> {
+  try {
+    const response = await api.get<User2[]>("/user/list");
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка при получении списка пользователей:", error);
+    throw error;
+  }
+}

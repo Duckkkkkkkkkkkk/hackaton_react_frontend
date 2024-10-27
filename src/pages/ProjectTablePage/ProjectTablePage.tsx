@@ -7,6 +7,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 import Snackbar, { SnackbarType } from "../../components/Snackbar/Snackbar";
 import StatusManager from "../../components/StatusManager/StatusManager";
+import { fetchTasksByProjectId } from "../../api//tasks/TaskApi";
 
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { RiseLoader } from "react-spinners";
@@ -17,6 +18,7 @@ import icon_search from "../../images/icons/icon_search.svg";
 import icons_search_active from "../../images/icons/icon_search_hover.svg";
 import icon_tasks from "../../images/icons/icon_tasks.svg";
 import icon_edit from "../../images/icons/icon_edit.svg";
+import task_icon from "../../images/icons/icon_task_table.svg"
 import icon_edit_active from "../../images/icons/icon_edit_hover.svg";
 import icon_delete from "../../images/icons/icon_delete.svg";
 import icon_delete_active from "../../images/icons/icon_delete_hover.svg";
@@ -214,6 +216,15 @@ const ProjectViewPage: React.FC = () => {
     }
   };
 
+  const handleFetchTasks = async (projectId: string) => {
+    try {
+      const tasks = await fetchTasksByProjectId(projectId);
+      navigate("/tasks", { state: { tasks, projectId } });
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+
   const sortedProjects = projects.slice().sort((a, b) => {
     if (sortField) {
       const aValue = a[sortField as keyof Projects] as unknown as string;
@@ -339,7 +350,7 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
   return (
     <div className="interns-table-page">
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <button className="project-add-button" onClick={handleAddProject}       style={isCreatingNewProject ? { position: 'absolute', top: '77.5vh' } : {}}
+      <button className="project-add-button" onClick={handleAddProject} style={isCreatingNewProject ? { position: 'absolute', top: '77.5vh' } : {}}
       >
         Добавить
       </button>
@@ -452,7 +463,8 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
                 <thead>
                   <tr>
                     <th></th>
-                    <th></th> 
+                    <th></th>
+                    <th></th>  
                     {ProjectFields.map(
                       (field) =>
                         visibleFields.includes(field.name) && (
@@ -497,6 +509,19 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
                           checked={selectedProjectIds.includes(project.id!)}
                           onChange={() => handleSelectProject(project.id!)}
                         />                      
+                      </th>
+                      <th>
+                      {currentItems.map((project) => (
+        <div key={project.id}>
+          <img
+            src={task_icon}
+            alt="task"
+            className="edit_icon"
+            onClick={() => handleFetchTasks(String(project.id))}
+            style={{ cursor: "pointer", backgroundRepeat:"no-repeat" }}
+          />
+       </div>
+      ))}
                       </th>
                       <td>
                         <img

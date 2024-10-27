@@ -1,0 +1,13 @@
+.control-panel {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    top: 0; 
+    left: 0; 
+    z-index: 1000;
+}
+.control-panel_title {
+    color: #000000;
+    font-size: 1.4vw;
+    margin-top: 5.5vh;
+}
