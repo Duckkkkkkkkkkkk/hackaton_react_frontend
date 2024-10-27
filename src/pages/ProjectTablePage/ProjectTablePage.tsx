@@ -469,6 +469,10 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
                 <thead>
                   <tr>
                     <th></th>
+                    {userRole === 'ADMIN' && (
+
+                    <th></th>
+                    )}
                     <th></th>  
                     {ProjectFields.map(
                       (field) =>
