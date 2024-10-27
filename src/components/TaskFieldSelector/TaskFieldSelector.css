@@ -1,0 +1,100 @@
+.task-field-selector .task-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    width: 220px;
+    border-radius: 8px;
+    border: 2px solid #7927e0; /* Добавляем обводку */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Увеличиваем тень */
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    z-index: 100000;
+    cursor: auto;
+}
+
+.task-field-selector .field-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  margin: 5px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.task-field-selector input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #7927e0;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.task-field-selector input[type="checkbox"]:checked {
+  background-color: #7927e0;
+}
+
+.task-field-selector input[type="checkbox"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 4px;
+  height: 8px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.task-field-selector .task-date-picker,
+.task-field-selector .executor-picker {
+  width: 90%;
+  margin: 5px auto;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  cursor: text;
+}
+
+.task-field-selector .task-apply-button {
+  background-color: #7927e0;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 10px auto 0;
+  text-align: center;
+  width: 90%;
+}
+
+.task-field-selector .task-apply-button:hover {
+  background-color: #5d1fbf;
+}
+
+.task-field-selector .task-clear-filters {
+  text-align: center;
+  color: #ff4f43;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.task-field-selector .task-clear-filters:hover {
+  text-decoration: underline;
+}
+
+.task-field-modal {
+    position: relative;
+    left: 45%;
+    width: 40vh;
+}
