@@ -5,13 +5,32 @@ import '../TasksPage/TasksPage.css';
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs';
 import KanbanBoard from '../../components/KanbanBoard/KanbanBoard';
 import { exportTasks } from '../../api/tasks/TaskApi';
-import export_button from "../../images/icons/icon_export_tasks.svg";
-import filter_button from "../../images/icons/icon_filter_task.svg";
+
+import export_button from "../../images/icons/icon_export_tasks.svg"
+import filter_button from "../../images/icons/icon_filter_task.svg"
+import search_icon from "../../images/icons/icon_search.svg"
 import TaskFieldSelector from '../../components/TaskFieldSelector/TaskFiledSelector';
 
+interface Project {
+  title: string;
+}
+
+interface Task {
+  id: string;
+  title: string;
+  user: string;
+  // project: {
+  //   title: string;
+  // }; 
+  project: string;
+  project_id: string;
+  status: string;
+  description: string;
+}
 const TaskPage: React.FC = () => {
   const location = useLocation();
   const { tasks, projectId } = location.state || { tasks: [], projectId: null };
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false); // Состояние для открытия TaskFieldSelector
@@ -39,6 +58,11 @@ const TaskPage: React.FC = () => {
     }
   };
 
+  const handleSearch = () => {
+    // Fetch tasks based on the search term
+    // You might want to trigger a fetchTasksByProjectId here
+  };
+
   const breadcrumbs = [
     { name: "Проекты", path: "/projects" },
     { name: "Проект_1", path: "/" }, // заглушка
@@ -63,7 +87,7 @@ const TaskPage: React.FC = () => {
           className="filter-icon"
           onClick={handleFilterClick} // Добавляем обработчик клика
           style={{ cursor: "pointer" }}
-        />
+        />  
       </div>
       {isFilterOpen && (
         <TaskFieldSelector

@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+.search-container-tsk {
+    margin-top: 5vh;
+    margin-left: 4vw;
+}
+
 .title {
     color: #000000;
     font-size: 1.4vw;

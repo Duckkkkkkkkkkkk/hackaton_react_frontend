@@ -12,6 +12,7 @@ import MainAdminPanel from "./pages/MainAdminPanel/MainAdminPanel";
 import Profile from "./pages/Profile/Profile";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import UserPage from "./pages/UsersPage/UsersPage";
+import PrivateRoute from "./api/auth/PrivateRoute";
 
 const App: React.FC = () => {
   return (
@@ -36,11 +37,11 @@ const MainLayout: React.FC = () => {
       <div className={hideSidebar ? "full-content" : "main-content"}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          <Route path="/projects" element={<ProjectTablePage />} />
-          <Route path="/tasks" element={<TaskPage />} />
-          <Route path="/main-admin-panel" element={<MainAdminPanel />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/users" element={<UserPage />} />
+          <Route path="/projects" element={<PrivateRoute element={<ProjectTablePage />} roles={['ADMIN', 'SPECIALIST', 'GUEST']} />} />
+          <Route path="/tasks" element={<PrivateRoute element={<TaskPage />} roles={['ADMIN', 'SPECIALIST', 'GUEST']} />} />
+          <Route path="/main-admin-panel" element={<PrivateRoute element={<MainAdminPanel />} roles={['ADMIN']} />} />
+          <Route path="/profile" element={<PrivateRoute element={<Profile />} roles={['ADMIN', 'SPECIALIST', 'GUEST']} />} />
+          <Route path="/users" element={<PrivateRoute element={<UserPage />} roles={['ADMIN']} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
