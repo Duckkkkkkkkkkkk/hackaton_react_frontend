@@ -8,6 +8,7 @@ import open_eye_icon from "../../images/icons/icon_open_eye.svg";
 import close_eye_icon from "../../images/icons/icon_close_eye.svg";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
+import icon_webpraktik from "../../images/icons/icon_webpraktik.svg"
 
 const LoginPage: React.FC = () => {
   useLogout();
@@ -98,6 +99,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-container">
+      <img className="wb_login" src={icon_webpraktik}></img>
       <div className="login-form">
         <h2>{isRegister ? "Регистрация" : "Вход в аккаунт"}</h2>
         {error && <div className="login-error-message">{error}</div>}

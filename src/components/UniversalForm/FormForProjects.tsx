@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+  import React, { useState, useEffect } from "react";
 import InputMask from "react-input-mask-next";
 import { Projects, fetchUsers } from "../../api/projects/ProjectsApi";
 // import { fetchProjectTitles } from "../../api/projectTasks/TaskApi";
@@ -417,7 +417,7 @@ const FormForProjects: React.FC<FormForProjectsProps> = ({
             )}
         </div>
         <div className="btnContainer">
-          <button className="btnTableAdd" type="submit">
+          <button className="save-button" type="submit">
             <img src={icon_check} alt="Сохранить" />
             &nbsp; Сохранить
           </button>

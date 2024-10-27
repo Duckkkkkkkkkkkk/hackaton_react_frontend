@@ -35,7 +35,7 @@
 .profile-form-control {
     width: 100%;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: #E8E8E8;
     padding: 1.7vh 0.8vw;
     font-family: 'Arial', sans-serif;
@@ -99,4 +99,9 @@
 .stack-name-dropdown li:hover {
     background: #f0f0f0;
 }
-  
+
+@media screen and (max-width: 480px) {
+    .profile-form-group {
+        width: auto;
+    }
+}

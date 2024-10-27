@@ -345,6 +345,8 @@ const ProjectViewPage: React.FC = () => {
     status: 'В работе',
 };
 
+
+
 const isCreatingNewProject = currentProject === null && isModalOpen;
 
   return (
@@ -355,8 +357,8 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
         Добавить
       </button>
       {isModalOpen && (
-      <div className="modal-background" >
-        <div className="modal-content">
+      <div className="proj-modal-background" >
+        <div className="proj-modal-content">
           <FormForProjects
             item={initialProjectData2}
             onSubmit={handleFormCreate}
@@ -385,8 +387,8 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
           <p className="control-panel_title" style={{ marginRight: "50%" }}>
               Проекты
           </p>
-          <div className="modal-background">
-            <div className="modal-content" style={{marginTop: "4vh"}}>
+          <div className="proj-modal-background">
+            <div className="proj-modal-content" style={{marginTop: "4vh"}}>
               <FormForProjects
                 item={selectedProject}
                 onSubmit={handleFormSubmit}
@@ -510,19 +512,15 @@ const isCreatingNewProject = currentProject === null && isModalOpen;
                           onChange={() => handleSelectProject(project.id!)}
                         />                      
                       </th>
-                      <th>
-                      {currentItems.map((project) => (
-        <div key={project.id}>
-          <img
-            src={task_icon}
-            alt="task"
-            className="edit_icon"
-            onClick={() => handleFetchTasks(String(project.id))}
-            style={{ cursor: "pointer", backgroundRepeat:"no-repeat" }}
-          />
-       </div>
-      ))}
-                      </th>
+                      <td>
+                        <img
+                          src={task_icon}
+                          alt="task"
+                          className="edit_icon"
+                          onClick={() => handleFetchTasks(String(project.id))}
+                          style={{ cursor: "pointer", backgroundRepeat: "no-repeat" }}
+                        />
+                      </td>
                       <td>
                         <img
                           src={icon_edit}

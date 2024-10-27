@@ -35,3 +35,9 @@ body {
   padding-left: 0;
   transition: margin-left 0.3s;
 }
+
+@media screen and (max-width: 480px) {
+  .main-content {
+    padding-left: 0;
+  }
+}
