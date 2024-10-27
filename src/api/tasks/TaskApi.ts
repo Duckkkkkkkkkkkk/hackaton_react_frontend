@@ -39,6 +39,10 @@ export interface ProjectTitle {
   title: string;
 }
 
+export interface ExportResponse {
+  downloadUrl: string;
+}
+
 const getAuthToken = () => {
   return localStorage.getItem("access_token");
 };
@@ -306,3 +310,30 @@ export const deleteTask = async (id: number): Promise<void> => {
     throw error;
   }
 };
+
+export async function exportTasksToExcel(projectId: number): Promise<void> {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/task/export/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      responseType: "blob",
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `tasks_project_${projectId}.xlsx`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error("Ошибка при экспорте задач:", error);
+  }
+}
+
+export async function exportTasks(projectId: number): Promise<ExportResponse> {
+  const response = await api.get<ExportResponse>(`/task/export/${projectId}`);
+  return response.data;
+}

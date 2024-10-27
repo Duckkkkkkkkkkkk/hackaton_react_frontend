@@ -10,6 +10,35 @@
     margin-top: 5.5vh;
 }
 
+.control-panel {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    top: 0; 
+    left: 0; 
+    z-index: 1000;
+}
+
+.export-icon{
+    height: 6vh;
+    width: auto;
+    margin-top: 5vh;
+    margin-left: 40vw;
+}
+
+.filter-icon {
+    height: 6vh;
+    width: auto;
+    margin-top: 5vh;
+    margin-left: 2.5vw;
+}
+
+.control-panel_title {
+    color: #000000;
+    font-size: 1.4vw;
+    margin-top: 5.5vh;
+}
+
 /* @media screen and (max-width: 480px) {
     body {
         padding-top: 10vh;
