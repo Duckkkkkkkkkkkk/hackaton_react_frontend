@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './TaskModal.css';
 import deleteIcon from "../../images/icons/icon_delete.svg";
 import checkIcon from "../../images/icons/icon_check.svg"
-import { updateTask } from '../../api/tasks/TaskApi';
+import { updateTask, deleteTask } from '../../api/tasks/TaskApi';
 
 type TaskModalProps = {
   isOpen: boolean;
@@ -54,6 +54,18 @@ const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, title, executor,
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      // Вызовите функцию deleteTask с ID задачи
+      await deleteTask(id);
+      console.log('Задача удалена');
+      onClose(); // Закрываем модал после удаления
+      window.location.reload(); // Перезагружаем страницу
+    } catch (error) {
+      console.error('Ошибка при удалении задачи:', error);
+    }
+  };
+
   return (
     <div className={`tsk-modal-overlay ${isOpen ? 'tsk-modal-open' : ''}`} onClick={onClose}>
       <div className="tsk-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -80,7 +92,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, title, executor,
           <textarea value={comment} onChange={handleCommentChange} placeholder="Введите комментарий"></textarea>
         </label>
         <div className='tsk-buttons'>
-          <button className="tsk-del_btn" /*onClick={onClose}*/>
+          <button className="tsk-del_btn" onClick={handleDelete}>
             <img src={deleteIcon} alt="Delete task" className='tsk-del_btn_img' />
             Удалить
           </button>
